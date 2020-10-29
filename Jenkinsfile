@@ -75,17 +75,6 @@ podTemplate(label: label,
                 }
             }
 
-            def sonarOptions = "-Dsonar.branch.name=${gitBranch}"
-            if (gitBranch.startsWith("PR-") && env.CHANGE_ID) {
-                sonarOptions = "-Dsonar.pullrequest.branch=" + gitBranch + " -Dsonar.pullrequest.key=" + env.CHANGE_ID
-            }
-            stage ('Run SonarQube') {
-                container("maven") {
-                    sh "mvn \${MVN_BLD} -DskipTests ${sonarOptions}  -Psonar sonar:sonar"
-                    slackReport = slackReport + "\nSources analyzed in SonarQube."
-                }
-            }
-
             // Tell the team what happened.
             slackSend(message: slackReport)
         }
