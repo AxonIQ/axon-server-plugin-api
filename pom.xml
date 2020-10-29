@@ -38,4 +38,44 @@
             </plugin>    <!-- (2) END -->
         </plugins>
     </build>
+
+    <scm>
+        <connection>scm:git:https://github.com/AxonIQ/axon-server-extension-api.git</connection>
+        <developerConnection>scm:git:https://github.com/AxonIQ/axon-server-extension-api.git</developerConnection>
+        <url>https://github.com/AxonIQ/axon-server-extension-api</url>
+        <tag>master</tag>
+    </scm>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>axoniq-nexus</id>
+            <url>https://nexus.dev.axoniq.net/repository/products-snapshots</url>
+            <uniqueVersion>false</uniqueVersion>
+        </snapshotRepository>
+        <repository>
+            <id>axoniq-nexus</id>
+            <url>https://nexus.dev.axoniq.net/repository/products-releases</url>
+            <uniqueVersion>true</uniqueVersion>
+        </repository>
+    </distributionManagement>
+
+    <repositories>
+        <repository>
+            <id>axoniq-nexus</id>
+            <url>https://nexus.dev.axoniq.net/repository/products/</url>
+        </repository>
+        <repository>
+            <id>sonatype</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+            <snapshots>
+                <enabled>true</enabled>
+                <checksumPolicy>fail</checksumPolicy>
+                <updatePolicy>always</updatePolicy>
+            </snapshots>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+        </repository>
+    </repositories>
+
 </project>
