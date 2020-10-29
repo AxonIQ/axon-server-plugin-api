@@ -6,7 +6,7 @@ import java.util.Set;
 /**
  * @author Marc Gathier
  */
-public interface InterceptorContext {
+public interface InterceptorContext extends OrderedInterceptor {
 
     String context();
 

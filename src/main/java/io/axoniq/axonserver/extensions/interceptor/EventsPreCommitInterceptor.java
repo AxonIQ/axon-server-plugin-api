@@ -15,7 +15,7 @@ package io.axoniq.axonserver.extensions.interceptor;
  * @author Marc Gathier
  * @since 4.5
  */
-public interface EventsPreCommitInterceptor {
+public interface EventsPreCommitInterceptor extends OrderedInterceptor {
 
     /**
      * Intercepts a transaction before it is committed. The interceptor can no longer

@@ -14,7 +14,7 @@ import io.axoniq.axonserver.grpc.event.Event;
 /**
  * @author Marc Gathier
  */
-public interface SnapshotReadInterceptor {
+public interface SnapshotReadInterceptor extends OrderedInterceptor {
 
     Event readSnapshot(InterceptorContext interceptorContext, Event snapshot);
 }

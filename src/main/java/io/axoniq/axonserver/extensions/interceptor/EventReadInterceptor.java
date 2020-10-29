@@ -18,7 +18,7 @@ import io.axoniq.axonserver.grpc.event.Event;
  * @author Marc Gathier
  * @since 4.5
  */
-public interface EventReadInterceptor {
+public interface EventReadInterceptor extends OrderedInterceptor {
 
     /**
      * Intercepts an event read from the event store. The interceptor may change the event.

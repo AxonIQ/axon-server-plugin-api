@@ -14,7 +14,7 @@ import io.axoniq.axonserver.grpc.command.CommandResponse;
 /**
  * @author Marc Gathier
  */
-public interface CommandResponseInterceptor {
+public interface CommandResponseInterceptor extends OrderedInterceptor {
 
     CommandResponse commandResponse(InterceptorContext interceptorContext, CommandResponse command);
 }

@@ -14,7 +14,7 @@ import io.axoniq.axonserver.grpc.event.Event;
 /**
  * @author Marc Gathier
  */
-public interface SnapshotPreCommitInterceptor {
+public interface SnapshotPreCommitInterceptor extends OrderedInterceptor {
 
     Event snapshotPreCommit(InterceptorContext interceptorContext, Event event);
 }

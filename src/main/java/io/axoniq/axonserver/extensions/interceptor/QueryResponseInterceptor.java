@@ -14,7 +14,7 @@ import io.axoniq.axonserver.grpc.query.QueryResponse;
 /**
  * @author Marc Gathier
  */
-public interface QueryResponseInterceptor {
+public interface QueryResponseInterceptor extends OrderedInterceptor {
 
     QueryResponse queryResponse(InterceptorContext interceptorContext, QueryResponse response);
 }

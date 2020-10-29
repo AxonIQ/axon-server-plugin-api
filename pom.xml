@@ -9,6 +9,12 @@
     <artifactId>axonserver-extension-api</artifactId>
     <packaging>bundle</packaging>
 
+    <properties>
+        <java.version>1.8</java.version>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>io.axoniq.axonserver</groupId>
