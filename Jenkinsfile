@@ -72,10 +72,6 @@ podTemplate(label: label,
                         slackReport = slackReport + "\nMaven build FAILED!"             // This means build itself failed, not 'just' tests
                         throw err
                     }
-                    finally {
-                        junit '**/target/surefire-reports/TEST-*.xml'                   // Read the test results
-                        slackReport = slackReport + "\n" + getTestSummary()
-                    }
                 }
             }
 
