@@ -12,9 +12,19 @@ package io.axoniq.axonserver.extensions.interceptor;
 import io.axoniq.axonserver.grpc.command.Command;
 
 /**
+ * Interceptor that intercepts a command. The interceptor may change the command.
+ *
  * @author Marc Gathier
+ * @since 4.5
  */
 public interface CommandRequestInterceptor extends OrderedInterceptor {
 
+    /**
+     * Interceptor for an incoming command.
+     *
+     * @param interceptorContext the context of the request
+     * @param command            the command that was sent
+     * @return the updated command
+     */
     Command commandRequest(InterceptorContext interceptorContext, Command command);
 }

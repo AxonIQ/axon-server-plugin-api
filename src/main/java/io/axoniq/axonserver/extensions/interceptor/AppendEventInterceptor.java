@@ -21,7 +21,7 @@ import io.axoniq.axonserver.grpc.event.Event;
 public interface AppendEventInterceptor extends OrderedInterceptor {
 
     /**
-     * Intercepts an event before it is committed. The interceptor may change the event.
+     * Intercepts an event when it is received by Axon Server. The interceptor may change the event.
      *
      * @param interceptorContext the context for the request
      * @param event              the new event
