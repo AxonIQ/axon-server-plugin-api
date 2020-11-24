@@ -7,14 +7,16 @@
  *
  */
 
-package io.axoniq.axonserver.extensions.interceptor;
+package io.axoniq.axonserver.extensions.hook;
 
+import io.axoniq.axonserver.extensions.Context;
+import io.axoniq.axonserver.extensions.Ordered;
 import io.axoniq.axonserver.grpc.event.Event;
 
 /**
  * @author Marc Gathier
  */
-public interface SnapshotPreCommitInterceptor extends OrderedInterceptor {
+public interface SnapshotPostCommitHook extends Ordered {
 
-    Event snapshotPreCommit(InterceptorContext interceptorContext, Event event);
+    void onPostCommit(Context context, Event snapshot);
 }

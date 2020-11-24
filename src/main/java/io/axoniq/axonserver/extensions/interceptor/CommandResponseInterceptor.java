@@ -9,12 +9,14 @@
 
 package io.axoniq.axonserver.extensions.interceptor;
 
+import io.axoniq.axonserver.extensions.Context;
+import io.axoniq.axonserver.extensions.Ordered;
 import io.axoniq.axonserver.grpc.command.CommandResponse;
 
 /**
  * @author Marc Gathier
  */
-public interface CommandResponseInterceptor extends OrderedInterceptor {
+public interface CommandResponseInterceptor extends Ordered {
 
-    CommandResponse commandResponse(InterceptorContext interceptorContext, CommandResponse command);
+    CommandResponse commandResponse(Context context, CommandResponse command);
 }

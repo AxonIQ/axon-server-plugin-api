@@ -9,6 +9,8 @@
 
 package io.axoniq.axonserver.extensions.interceptor;
 
+import io.axoniq.axonserver.extensions.Context;
+import io.axoniq.axonserver.extensions.Ordered;
 import io.axoniq.axonserver.grpc.event.Event;
 
 /**
@@ -18,14 +20,14 @@ import io.axoniq.axonserver.grpc.event.Event;
  * @author Marc Gathier
  * @since 4.5
  */
-public interface EventReadInterceptor extends OrderedInterceptor {
+public interface EventReadInterceptor extends Ordered {
 
     /**
      * Intercepts an event read from the event store. The interceptor may change the event.
      *
-     * @param interceptorContext the request context
-     * @param event              the read event
+     * @param context the request context
+     * @param event   the read event
      * @return the read event
      */
-    Event readEvent(InterceptorContext interceptorContext, Event event);
+    Event readEvent(Context context, Event event);
 }

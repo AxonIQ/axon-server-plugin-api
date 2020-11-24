@@ -7,7 +7,13 @@
  *
  */
 
-package io.axoniq.axonserver.extensions.interceptor;
+package io.axoniq.axonserver.extensions.hook;
+
+import io.axoniq.axonserver.extensions.Context;
+import io.axoniq.axonserver.extensions.Ordered;
+import io.axoniq.axonserver.grpc.event.Event;
+
+import java.util.List;
 
 /**
  * Interceptor that is called when the client commits a transaction with new events.
@@ -15,13 +21,14 @@ package io.axoniq.axonserver.extensions.interceptor;
  * @author Marc Gathier
  * @since 4.5
  */
-public interface EventsPreCommitInterceptor extends OrderedInterceptor {
+public interface EventsPreCommitHook extends Ordered {
 
     /**
      * Intercepts a transaction before it is committed. The interceptor can no longer
      * change the contents of the transaction.
      *
-     * @param interceptorContext the context for the request
+     * @param context the context for the request
+     * @param events  the list of events in the transaction
      */
-    void eventsPreCommit(InterceptorContext interceptorContext);
+    void onPreCommit(Context context, List<Event> events);
 }

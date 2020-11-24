@@ -1,4 +1,4 @@
-package io.axoniq.axonserver.extensions.interceptor;
+package io.axoniq.axonserver.extensions;
 
 /**
  * Interface to enable ordering of interceptors.
@@ -6,7 +6,7 @@ package io.axoniq.axonserver.extensions.interceptor;
  * @author Marc Gathier
  * @since 4.5
  */
-public interface OrderedInterceptor {
+public interface Ordered {
 
     /**
      * Returns the sort order value for the interceptor. Lower values will be executed first. Default value is 0.

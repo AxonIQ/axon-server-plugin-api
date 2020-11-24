@@ -11,14 +11,17 @@ package io.axoniq.axonserver.extensions.transform;
 
 /**
  * Defines the interface for an EventTransformer factory.
+ *
  * @author Marc Gathier
  */
 public interface EventTransformerFactory {
 
     /**
-     * Get an event transformer. The transformer may be based on version and flags (for existing data) or based on settings in the storage properties (for new data).
+     * Get an event transformer. The transformer may be based on version and flags (for existing data) or based on
+     * settings in the storage properties (for new data).
+     *
      * @param version the version for existing data
-     * @param flags the flags for existing data
+     * @param flags   the flags for existing data
      * @return the transformer
      */
     EventTransformer get(byte version, int flags);

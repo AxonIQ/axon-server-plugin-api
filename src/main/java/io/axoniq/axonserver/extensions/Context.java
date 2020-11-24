@@ -1,4 +1,4 @@
-package io.axoniq.axonserver.extensions.interceptor;
+package io.axoniq.axonserver.extensions;
 
 import java.util.Map;
 import java.util.Set;
@@ -10,7 +10,7 @@ import java.util.Set;
  * @author Marc Gathier
  * @since 4.5
  */
-public interface InterceptorContext extends OrderedInterceptor {
+public interface Context extends Ordered {
 
     /**
      * @return the name of the Axon Server context for the request

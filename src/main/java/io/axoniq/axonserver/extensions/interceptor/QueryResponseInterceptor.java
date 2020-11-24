@@ -9,12 +9,14 @@
 
 package io.axoniq.axonserver.extensions.interceptor;
 
+import io.axoniq.axonserver.extensions.Context;
+import io.axoniq.axonserver.extensions.Ordered;
 import io.axoniq.axonserver.grpc.query.QueryResponse;
 
 /**
  * @author Marc Gathier
  */
-public interface QueryResponseInterceptor extends OrderedInterceptor {
+public interface QueryResponseInterceptor extends Ordered {
 
-    QueryResponse queryResponse(InterceptorContext interceptorContext, QueryResponse response);
+    QueryResponse queryResponse(Context context, QueryResponse response);
 }

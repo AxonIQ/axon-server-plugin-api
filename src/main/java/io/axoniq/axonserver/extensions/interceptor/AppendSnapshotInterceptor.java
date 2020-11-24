@@ -16,7 +16,7 @@ import io.axoniq.axonserver.grpc.event.Event;
 /**
  * @author Marc Gathier
  */
-public interface SnapshotReadInterceptor extends Ordered {
+public interface AppendSnapshotInterceptor extends Ordered {
 
-    Event readSnapshot(Context context, Event snapshot);
+    Event onAppend(Context context, Event snapshot);
 }

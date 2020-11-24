@@ -7,7 +7,13 @@
  *
  */
 
-package io.axoniq.axonserver.extensions.interceptor;
+package io.axoniq.axonserver.extensions.hook;
+
+import io.axoniq.axonserver.extensions.Context;
+import io.axoniq.axonserver.extensions.Ordered;
+import io.axoniq.axonserver.grpc.event.Event;
+
+import java.util.List;
 
 /**
  * Interceptor that is called after a transaction with events is committed in Axon Server.
@@ -15,13 +21,14 @@ package io.axoniq.axonserver.extensions.interceptor;
  * @author Marc Gathier
  * @since 4.5
  */
-public interface EventsPostCommitInterceptor extends OrderedInterceptor {
+public interface EventsPostCommitHook extends Ordered {
 
     /**
      * Intercepts a transaction after it is committed. The interceptor can no longer
      * change the contents of the transaction.
      *
-     * @param interceptorContext the context for the request
+     * @param context the context for the request
+     * @param events  the list of events in the transaction
      */
-    void eventsPreCommit(InterceptorContext interceptorContext);
+    void onPostCommit(Context context, List<Event> events);
 }

@@ -9,15 +9,19 @@
 
 package io.axoniq.axonserver.extensions.transform;
 
+import io.axoniq.axonserver.extensions.Ordered;
+
 /**
  * Transformer to transform events between protobuf event bytes and stored event bytes.
  * Transformer implementations may perform compression or encryption before storing.
+ *
  * @author Marc Gathier
  */
-public interface EventTransformer {
+public interface EventTransformer extends Ordered {
 
     /**
      * Converts stored bytes to protobuf bytes.
+     *
      * @param eventBytes bytes as stored
      * @return protobuf event bytes
      */
@@ -25,6 +29,7 @@ public interface EventTransformer {
 
     /**
      * Converts protobuf event bytes to bytes to store.
+     *
      * @param bytes protobuf event bytes
      * @return transformed bytes to store
      */
