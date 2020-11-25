@@ -9,7 +9,7 @@
 
 package io.axoniq.axonserver.extensions.interceptor;
 
-import io.axoniq.axonserver.extensions.ExtensionContext;
+import io.axoniq.axonserver.extensions.ExtensionUnitOfWork;
 import io.axoniq.axonserver.extensions.Ordered;
 import io.axoniq.axonserver.grpc.query.QueryResponse;
 
@@ -18,5 +18,5 @@ import io.axoniq.axonserver.grpc.query.QueryResponse;
  */
 public interface QueryResponseInterceptor extends Ordered {
 
-    QueryResponse queryResponse(ExtensionContext extensionContext, QueryResponse response);
+    QueryResponse queryResponse(QueryResponse response, ExtensionUnitOfWork extensionContext);
 }

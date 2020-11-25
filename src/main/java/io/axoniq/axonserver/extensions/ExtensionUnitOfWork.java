@@ -2,6 +2,7 @@ package io.axoniq.axonserver.extensions;
 
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Consumer;
 
 /**
  * Context information provided to all intercepted requests. The same context instance is shared in the whole request
@@ -10,7 +11,7 @@ import java.util.Set;
  * @author Marc Gathier
  * @since 4.5
  */
-public interface ExtensionContext extends Ordered {
+public interface ExtensionUnitOfWork {
 
     /**
      * @return the name of the Axon Server context for the request
@@ -50,4 +51,12 @@ public interface ExtensionContext extends Ordered {
      * @return the custom data
      */
     Object getDetails(String key);
+
+    /**
+     * Registers an action to compensate state changes made by the interceptor when the request fails to execute
+     * successfully.
+     *
+     * @param compensatingAction the action to execute when the request failed
+     */
+    void onFailure(Consumer<ExtensionUnitOfWork> compensatingAction);
 }

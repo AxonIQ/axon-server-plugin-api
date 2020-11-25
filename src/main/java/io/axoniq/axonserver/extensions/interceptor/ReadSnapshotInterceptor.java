@@ -9,7 +9,7 @@
 
 package io.axoniq.axonserver.extensions.interceptor;
 
-import io.axoniq.axonserver.extensions.ExtensionContext;
+import io.axoniq.axonserver.extensions.ExtensionUnitOfWork;
 import io.axoniq.axonserver.extensions.Ordered;
 import io.axoniq.axonserver.grpc.event.Event;
 
@@ -18,5 +18,5 @@ import io.axoniq.axonserver.grpc.event.Event;
  */
 public interface ReadSnapshotInterceptor extends Ordered {
 
-    Event readSnapshot(ExtensionContext extensionContext, Event snapshot);
+    Event readSnapshot(Event snapshot, ExtensionUnitOfWork extensionContext);
 }

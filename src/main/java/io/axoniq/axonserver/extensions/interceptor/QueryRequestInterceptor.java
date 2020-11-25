@@ -9,8 +9,8 @@
 
 package io.axoniq.axonserver.extensions.interceptor;
 
+import io.axoniq.axonserver.extensions.ExtensionUnitOfWork;
 import io.axoniq.axonserver.extensions.Ordered;
-import io.axoniq.axonserver.extensions.RevertibleExtensionContext;
 import io.axoniq.axonserver.grpc.query.QueryRequest;
 
 /**
@@ -18,5 +18,5 @@ import io.axoniq.axonserver.grpc.query.QueryRequest;
  */
 public interface QueryRequestInterceptor extends Ordered {
 
-    QueryRequest queryRequest(RevertibleExtensionContext extensionContext, QueryRequest query);
+    QueryRequest queryRequest(QueryRequest query, ExtensionUnitOfWork extensionContext);
 }

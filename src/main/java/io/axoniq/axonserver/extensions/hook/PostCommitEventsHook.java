@@ -9,7 +9,7 @@
 
 package io.axoniq.axonserver.extensions.hook;
 
-import io.axoniq.axonserver.extensions.ExtensionContext;
+import io.axoniq.axonserver.extensions.ExtensionUnitOfWork;
 import io.axoniq.axonserver.extensions.Ordered;
 import io.axoniq.axonserver.grpc.event.Event;
 
@@ -27,8 +27,8 @@ public interface PostCommitEventsHook extends Ordered {
      * Intercepts a transaction after it is committed. The interceptor can no longer
      * change the contents of the transaction.
      *
-     * @param context the context for the request
      * @param events  the list of events in the transaction
+     * @param context the context for the request
      */
-    void onPostCommitEvent(ExtensionContext context, List<Event> events);
+    void onPostCommitEvent(List<Event> events, ExtensionUnitOfWork context);
 }

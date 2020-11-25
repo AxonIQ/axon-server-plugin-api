@@ -9,7 +9,7 @@
 
 package io.axoniq.axonserver.extensions.interceptor;
 
-import io.axoniq.axonserver.extensions.ExtensionContext;
+import io.axoniq.axonserver.extensions.ExtensionUnitOfWork;
 import io.axoniq.axonserver.extensions.Ordered;
 import io.axoniq.axonserver.grpc.query.QueryUpdate;
 import io.axoniq.axonserver.grpc.query.QueryUpdateComplete;
@@ -20,15 +20,15 @@ import io.axoniq.axonserver.grpc.query.QueryUpdateCompleteExceptionally;
  */
 public interface QueryUpdateInterceptor extends Ordered {
 
-    QueryUpdate queryUpdate(ExtensionContext extensionContext, QueryUpdate update);
+    QueryUpdate queryUpdate(QueryUpdate update, ExtensionUnitOfWork extensionContext);
 
-    default QueryUpdateComplete queryUpdateComplete(ExtensionContext extensionContext,
-                                                    QueryUpdateComplete updateComplete) {
+    default QueryUpdateComplete queryUpdateComplete(QueryUpdateComplete updateComplete,
+                                                    ExtensionUnitOfWork extensionContext) {
         return updateComplete;
     }
 
-    default QueryUpdateCompleteExceptionally queryUpdateCompleteExceptionally(ExtensionContext extensionContext,
-                                                                              QueryUpdateCompleteExceptionally updateCompleteExceptionally) {
+    default QueryUpdateCompleteExceptionally queryUpdateCompleteExceptionally(
+            QueryUpdateCompleteExceptionally updateCompleteExceptionally, ExtensionUnitOfWork extensionContext) {
         return updateCompleteExceptionally;
     }
 }
