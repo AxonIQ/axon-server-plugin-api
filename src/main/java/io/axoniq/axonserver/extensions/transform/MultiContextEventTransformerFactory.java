@@ -1,5 +1,7 @@
 package io.axoniq.axonserver.extensions.transform;
 
+import java.util.Map;
+
 /**
  * Factory to create a context specific EventTransformerFactory.
  * Each event transformer factory can create an event transformer to use for a specific file (based on file version
@@ -16,5 +18,5 @@ public interface MultiContextEventTransformerFactory {
      * @param context the context name
      * @return the transformer factory
      */
-    EventTransformerFactory factoryForContext(String context);
+    EventTransformerFactory factoryForContext(String context, Map<String, String> properties);
 }

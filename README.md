@@ -16,7 +16,8 @@ caller of the request, the Axon Server context and allows implementors of interc
 
 ## Command
 
-Commands can be intercepted before they are sent to a command handler and after the command handler has handled the command.
+Commands can be intercepted before they are sent to a command handler and Command Results are intercepted after the 
+command handler has handled the command.
 
 Axon Server executes all registered _CommandRequestInterceptor_ instances before sending the command to the handler.
 If one of the interceptor instances throws an exception Axon Server will not send the command to the handler, and it will
@@ -77,7 +78,7 @@ container.
 ```java
 package org.example.interceptor;
 
-import io.axoniq.axonserver.extensions.interceptor.EventReadInterceptor;
+import io.axoniq.axonserver.extensions.interceptor.ReadEventInterceptor;
 import org.example.interceptor.impl.FirstEventReadInterceptor;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
@@ -94,7 +95,7 @@ public class Activator implements BundleActivator {
 
     public void start(BundleContext bundleContext) {
         Dictionary dictionary = new Hashtable();
-        registration.add(bundleContext.registerService(EventReadInterceptor.class.getName(),
+        registration.add(bundleContext.registerService(ReadEventInterceptor.class.getName(),
                                                        new FirstEventReadInterceptor(),
                                                        dictionary));
     }

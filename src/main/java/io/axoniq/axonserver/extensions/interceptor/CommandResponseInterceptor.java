@@ -9,7 +9,7 @@
 
 package io.axoniq.axonserver.extensions.interceptor;
 
-import io.axoniq.axonserver.extensions.Context;
+import io.axoniq.axonserver.extensions.ExtensionContext;
 import io.axoniq.axonserver.extensions.Ordered;
 import io.axoniq.axonserver.grpc.command.CommandResponse;
 
@@ -18,5 +18,5 @@ import io.axoniq.axonserver.grpc.command.CommandResponse;
  */
 public interface CommandResponseInterceptor extends Ordered {
 
-    CommandResponse commandResponse(Context context, CommandResponse command);
+    CommandResponse commandResponse(ExtensionContext extensionContext, CommandResponse command);
 }

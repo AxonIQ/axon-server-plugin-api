@@ -17,12 +17,11 @@ package io.axoniq.axonserver.extensions.transform;
 public interface EventTransformerFactory {
 
     /**
-     * Get an event transformer. The transformer may be based on version and flags (for existing data) or based on
-     * settings in the storage properties (for new data).
+     * Get an event transformer. The transformer may be based on flags (for existing data) or based on
+     * settings in the storage properties (for new data). //TODO rephrase
      *
-     * @param version the version for existing data
-     * @param flags   the flags for existing data
+     * @param flags the flags for existing data
      * @return the transformer
      */
-    EventTransformer get(byte version, int flags);
+    EventTransformer get(int flags);
 }

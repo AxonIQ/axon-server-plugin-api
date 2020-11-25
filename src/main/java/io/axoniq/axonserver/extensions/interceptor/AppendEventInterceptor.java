@@ -9,8 +9,8 @@
 
 package io.axoniq.axonserver.extensions.interceptor;
 
-import io.axoniq.axonserver.extensions.Context;
 import io.axoniq.axonserver.extensions.Ordered;
+import io.axoniq.axonserver.extensions.RevertibleExtensionContext;
 import io.axoniq.axonserver.grpc.event.Event;
 
 /**
@@ -25,9 +25,9 @@ public interface AppendEventInterceptor extends Ordered {
     /**
      * Intercepts an event when it is received by Axon Server. The interceptor may change the event.
      *
-     * @param context the context for the request
-     * @param event   the new event
+     * @param extensionContext the context for the request
+     * @param event            the new event
      * @return the new event
      */
-    Event appendEvent(Context context, Event event);
+    Event appendEvent(RevertibleExtensionContext extensionContext, Event event);
 }

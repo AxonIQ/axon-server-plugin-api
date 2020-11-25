@@ -9,14 +9,14 @@
 
 package io.axoniq.axonserver.extensions.hook;
 
-import io.axoniq.axonserver.extensions.Context;
+import io.axoniq.axonserver.extensions.ExtensionContext;
 import io.axoniq.axonserver.extensions.Ordered;
 import io.axoniq.axonserver.grpc.event.Event;
 
 /**
  * @author Marc Gathier
  */
-public interface SnapshotPostCommitHook extends Ordered {
+public interface PostCommitSnapshotHook extends Ordered {
 
-    void onPostCommit(Context context, Event snapshot);
+    void onPostCommitSnapshot(ExtensionContext context, Event snapshot);
 }

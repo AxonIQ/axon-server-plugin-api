@@ -9,8 +9,8 @@
 
 package io.axoniq.axonserver.extensions.interceptor;
 
-import io.axoniq.axonserver.extensions.Context;
 import io.axoniq.axonserver.extensions.Ordered;
+import io.axoniq.axonserver.extensions.RevertibleExtensionContext;
 import io.axoniq.axonserver.grpc.command.Command;
 
 /**
@@ -24,9 +24,9 @@ public interface CommandRequestInterceptor extends Ordered {
     /**
      * Interceptor for an incoming command.
      *
-     * @param context the context of the request
-     * @param command the command that was sent
+     * @param extensionContext the context of the request
+     * @param command          the command that was sent
      * @return the updated command
      */
-    Command commandRequest(Context context, Command command);
+    Command commandRequest(RevertibleExtensionContext extensionContext, Command command);
 }

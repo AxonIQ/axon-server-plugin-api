@@ -9,8 +9,8 @@
 
 package io.axoniq.axonserver.extensions.hook;
 
-import io.axoniq.axonserver.extensions.Context;
 import io.axoniq.axonserver.extensions.Ordered;
+import io.axoniq.axonserver.extensions.RevertibleExtensionContext;
 import io.axoniq.axonserver.grpc.event.Event;
 
 import java.util.List;
@@ -21,7 +21,7 @@ import java.util.List;
  * @author Marc Gathier
  * @since 4.5
  */
-public interface EventsPreCommitHook extends Ordered {
+public interface PreCommitEventsHook extends Ordered {
 
     /**
      * Intercepts a transaction before it is committed. The interceptor can no longer
@@ -30,5 +30,5 @@ public interface EventsPreCommitHook extends Ordered {
      * @param context the context for the request
      * @param events  the list of events in the transaction
      */
-    void onPreCommit(Context context, List<Event> events);
+    void onPreCommitEvents(RevertibleExtensionContext context, List<Event> events);
 }

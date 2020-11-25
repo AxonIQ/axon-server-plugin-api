@@ -9,14 +9,14 @@
 
 package io.axoniq.axonserver.extensions.interceptor;
 
-import io.axoniq.axonserver.extensions.Context;
+import io.axoniq.axonserver.extensions.ExtensionContext;
 import io.axoniq.axonserver.extensions.Ordered;
 import io.axoniq.axonserver.grpc.event.Event;
 
 /**
  * @author Marc Gathier
  */
-public interface SnapshotReadInterceptor extends Ordered {
+public interface ReadSnapshotInterceptor extends Ordered {
 
-    Event readSnapshot(Context context, Event snapshot);
+    Event readSnapshot(ExtensionContext extensionContext, Event snapshot);
 }

@@ -10,7 +10,7 @@ import java.util.Set;
  * @author Marc Gathier
  * @since 4.5
  */
-public interface Context extends Ordered {
+public interface ExtensionContext extends Ordered {
 
     /**
      * @return the name of the Axon Server context for the request
@@ -32,13 +32,6 @@ public interface Context extends Ordered {
      */
     Map<String, String> principalMetaData();
 
-    /**
-     * Registers an action to compensate state changes made by the interceptor when the request fails to execute
-     * successfully.
-     *
-     * @param compensatingAction the action to execute when the request failed
-     */
-    void registerCompensatingAction(Runnable compensatingAction);
 
     /**
      * Enables the interceptor to add custom data to the interceptor context. This data can be used in other

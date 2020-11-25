@@ -9,8 +9,8 @@
 
 package io.axoniq.axonserver.extensions.interceptor;
 
-import io.axoniq.axonserver.extensions.Context;
 import io.axoniq.axonserver.extensions.Ordered;
+import io.axoniq.axonserver.extensions.RevertibleExtensionContext;
 import io.axoniq.axonserver.grpc.event.Event;
 
 /**
@@ -18,5 +18,5 @@ import io.axoniq.axonserver.grpc.event.Event;
  */
 public interface AppendSnapshotInterceptor extends Ordered {
 
-    Event onAppend(Context context, Event snapshot);
+    Event appendSnapshot(RevertibleExtensionContext extensionContext, Event snapshot);
 }
