@@ -1,10 +1,13 @@
-# Axon Server Interceptors
+# Axon Server Extension API
+
+## Interceptors and Hooks
 
 Users can extend Axon Server functionality by defining interceptors. Interceptors intercept requests that 
 client applications send and perform actions before and/or after the request is handled.
 Axon Server supports interceptors for the following types:
 - Command
-- Query
+- Query (scatter/gather and point-to-point)
+- Subscription Query
 - Event
 - Snapshot
 
@@ -14,7 +17,7 @@ the _order_ operation in the interceptor instance.
 Each interceptor operation has an InterceptorContext instance as its first parameter. This contains information about the
 caller of the request, the Axon Server context and allows implementors of interceptors to pass data in the interceptor chain. 
 
-## Command
+### Command
 
 Commands can be intercepted before they are sent to a command handler and Command Results are intercepted after the 
 command handler has handled the command.
@@ -29,17 +32,19 @@ InterceptorContext, if it needs any information of the Command request, this has
 CommandRequestInterceptor. The response interceptor is also executed when the command failed in the command handler. 
 In this case the CommandResponse object contains an error code and error message.
 
-## Query
+### Query
 
 Similar interceptors to commands (QueryRequestInterceptor and QueryResponseInterceptor).
 Note that a query may return multiple responses, in case of a scatter/gather query. In this case Axon Server executes
 the response interceptors for each response.
 
-## Event
+### Subscription Query
+
+### Event
 
 For events there are interceptors around the storing of events and interceptors for reading events. 
 
-### Storing events
+_Storing events_
 
 When storing events, a client sends a stream of events to Axon Server, for each event that reaches Axon Server, Axon Server
 executes the _AppendEventInterceptor_ instances. These interceptors can manipulate the content of the event, and if one of the 
@@ -54,12 +59,12 @@ Once Axon Server has stored the events in the event store, and before it returns
 executes any _EventsPostCommitInterceptor_ instances. Just like the EventsPreCommitInterceptor this interceptor does not
 have access to the events.
 
-### Reading events
+_Reading events_
 
 Axon Server executes the _EventReadInterceptor_ instances for each event read from the event store and sent to a client 
 application. The interceptor may change the content of the event.
 
-## Snapshot
+### Snapshot
 
 For snapshots there are interceptors around the storing of snapshot and interceptors for reading snapshots.
 Before storing a snapshot, Axon Server executes all _SnapshotPreCommitInterceptor_ instances.
@@ -67,10 +72,14 @@ Before storing a snapshot, Axon Server executes all _SnapshotPreCommitIntercepto
 
 On sending snapshots to a client, Axon Server executes all _SnapshotReadInterceptor_ instances.  
 
-## Building interceptors
+### Event transformers
 
-To add interceptors in Axon Server, create an OSGi module that contains the interceptor implementations. You can add 
-all interceptors in a single module, or you can define multiple modules, each containing some interceptors.
+
+
+### Building extensions
+
+To add extensions in Axon Server, create an OSGi module that contains the extension implementations. You can add 
+all extensions in a single module, or you can define multiple modules, each containing some interceptors.
 
 The implementation of the OSGi module must contain an _BundleActivator_ class, that makes the interceptors available in the OSGi 
 container. 
@@ -164,5 +173,4 @@ To bundle the interceptors in a jar file you can use the following maven templat
 
 </project>
 ```
-
 
