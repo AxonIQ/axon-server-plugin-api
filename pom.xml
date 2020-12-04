@@ -38,7 +38,9 @@
                 <configuration>
                     <instructions>
                         <Import-Package>org.osgi.framework,io.axoniq.axonserver.grpc.*</Import-Package>
-                        <Export-Package>io.axoniq.axonserver.extensions.*,io.axoniq.axonserver.grpc.*</Export-Package>
+                        <Export-Package>
+                            io.axoniq.axonserver.extensions.*,io.axoniq.axonserver.grpc.*;com.google.protobuf.*
+                        </Export-Package>
                     </instructions>
                 </configuration>
             </plugin>    <!-- (2) END -->
