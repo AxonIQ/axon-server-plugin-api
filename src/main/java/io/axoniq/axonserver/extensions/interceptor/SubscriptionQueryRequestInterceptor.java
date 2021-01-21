@@ -18,6 +18,6 @@ import io.axoniq.axonserver.grpc.query.SubscriptionQueryRequest;
  */
 public interface SubscriptionQueryRequestInterceptor extends Ordered {
 
-    SubscriptionQueryRequest subscriptionQueryRequestInterceptor(SubscriptionQueryRequest subscriptionQueryRequest,
-                                                                 ExtensionUnitOfWork extensionContext);
+    SubscriptionQueryRequest subscriptionQueryRequest(SubscriptionQueryRequest subscriptionQueryRequest,
+                                                      ExtensionUnitOfWork extensionContext);
 }
