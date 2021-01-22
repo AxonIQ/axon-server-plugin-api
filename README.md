@@ -160,7 +160,7 @@ To bundle the interceptors in a jar file you can use the following maven templat
                     <instructions>
                         <Embed-Dependency>*;scope=compile|runtime</Embed-Dependency>
                         <!-- import the packages exposed by the extension api and the Axon Server message types --> 
-                        <Import-Package>io.axoniq.axonserver.extensions.*;io.axoniq.axonserver.grpc.*;org.osgi.framework</Import-Package>
+                        <Import-Package>io.axoniq.axonserver.extensions.*;io.axoniq.axonserver.grpc.*;org.osgi.framework;com.google.protobuf.*</Import-Package>
                         <!-- internal packages for the bundle --> 
                         <Private-Package>org.example.interceptor.*</Private-Package>
                         <!-- references the BundleActivator class --> 
