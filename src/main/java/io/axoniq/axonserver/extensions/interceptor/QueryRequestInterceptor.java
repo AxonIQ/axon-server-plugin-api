@@ -11,12 +11,17 @@ package io.axoniq.axonserver.extensions.interceptor;
 
 import io.axoniq.axonserver.extensions.ExtensionUnitOfWork;
 import io.axoniq.axonserver.extensions.Ordered;
+import io.axoniq.axonserver.extensions.RequestRejectedException;
 import io.axoniq.axonserver.grpc.query.QueryRequest;
 
 /**
+ * Interceptor that intercepts a query. The interceptor may change the query.
+ *
  * @author Marc Gathier
+ * @since 4.5
  */
 public interface QueryRequestInterceptor extends Ordered {
 
-    QueryRequest queryRequest(QueryRequest query, ExtensionUnitOfWork extensionContext);
+    QueryRequest queryRequest(QueryRequest query, ExtensionUnitOfWork extensionContext) throws
+                                                                                        RequestRejectedException;
 }

@@ -14,7 +14,10 @@ import io.axoniq.axonserver.extensions.Ordered;
 import io.axoniq.axonserver.grpc.event.Event;
 
 /**
+ * Hook that is called after a snapshot is committed in Axon Server.
+ *
  * @author Marc Gathier
+ * @since 4.5
  */
 public interface PostCommitSnapshotHook extends Ordered {
 

@@ -14,7 +14,10 @@ import io.axoniq.axonserver.extensions.Ordered;
 import io.axoniq.axonserver.grpc.command.CommandResponse;
 
 /**
+ * Interceptor that intercepts a command response. The interceptor may change the response.
+ *
  * @author Marc Gathier
+ * @since 4.5
  */
 public interface CommandResponseInterceptor extends Ordered {
 

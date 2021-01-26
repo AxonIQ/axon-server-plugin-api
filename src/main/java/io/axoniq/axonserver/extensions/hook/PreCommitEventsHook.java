@@ -11,6 +11,7 @@ package io.axoniq.axonserver.extensions.hook;
 
 import io.axoniq.axonserver.extensions.ExtensionUnitOfWork;
 import io.axoniq.axonserver.extensions.Ordered;
+import io.axoniq.axonserver.extensions.RequestRejectedException;
 import io.axoniq.axonserver.grpc.event.Event;
 
 import java.util.List;
@@ -30,5 +31,5 @@ public interface PreCommitEventsHook extends Ordered {
      * @param events  the list of events in the transaction
      * @param context the context for the request
      */
-    void onPreCommitEvents(List<Event> events, ExtensionUnitOfWork context);
+    void onPreCommitEvents(List<Event> events, ExtensionUnitOfWork context) throws RequestRejectedException;
 }

@@ -11,12 +11,16 @@ package io.axoniq.axonserver.extensions.interceptor;
 
 import io.axoniq.axonserver.extensions.ExtensionUnitOfWork;
 import io.axoniq.axonserver.extensions.Ordered;
+import io.axoniq.axonserver.extensions.RequestRejectedException;
 import io.axoniq.axonserver.grpc.event.Event;
 
 /**
+ * Interceptor that is called when a snapshot is sent to Axon Server.
+ *
  * @author Marc Gathier
+ * @since 4.5
  */
 public interface AppendSnapshotInterceptor extends Ordered {
 
-    Event appendSnapshot(Event snapshot, ExtensionUnitOfWork extensionContext);
+    Event appendSnapshot(Event snapshot, ExtensionUnitOfWork extensionContext) throws RequestRejectedException;
 }

@@ -3,7 +3,10 @@ package io.axoniq.axonserver.extensions;
 import java.util.List;
 
 /**
+ * Defines a property that can be configured through Axon Server.
+ *
  * @author Marc Gathier
+ * @since 4.5
  */
 public class ExtensionPropertyDefinition {
 

@@ -14,7 +14,10 @@ import io.axoniq.axonserver.extensions.Ordered;
 import io.axoniq.axonserver.grpc.query.SubscriptionQueryResponse;
 
 /**
+ * Interceptor that intercepts any subscription query response.
+ *
  * @author Marc Gathier
+ * @since 4.5
  */
 public interface SubscriptionQueryResponseInterceptor extends Ordered {
 

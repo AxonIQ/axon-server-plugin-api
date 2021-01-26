@@ -11,13 +11,18 @@ package io.axoniq.axonserver.extensions.interceptor;
 
 import io.axoniq.axonserver.extensions.ExtensionUnitOfWork;
 import io.axoniq.axonserver.extensions.Ordered;
+import io.axoniq.axonserver.extensions.RequestRejectedException;
 import io.axoniq.axonserver.grpc.query.SubscriptionQueryRequest;
 
 /**
+ * Interceptor that intercepts any subscription query request.
+ *
  * @author Marc Gathier
+ * @since 4.5
  */
 public interface SubscriptionQueryRequestInterceptor extends Ordered {
 
     SubscriptionQueryRequest subscriptionQueryRequest(SubscriptionQueryRequest subscriptionQueryRequest,
-                                                      ExtensionUnitOfWork extensionContext);
+                                                      ExtensionUnitOfWork extensionContext)
+            throws RequestRejectedException;
 }

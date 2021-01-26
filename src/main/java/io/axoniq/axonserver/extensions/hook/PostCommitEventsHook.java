@@ -16,7 +16,7 @@ import io.axoniq.axonserver.grpc.event.Event;
 import java.util.List;
 
 /**
- * Interceptor that is called after a transaction with events is committed in Axon Server.
+ * Hook that is called after a transaction with events is committed in Axon Server.
  *
  * @author Marc Gathier
  * @since 4.5

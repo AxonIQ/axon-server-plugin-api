@@ -14,8 +14,8 @@ import io.axoniq.axonserver.extensions.Ordered;
 import io.axoniq.axonserver.grpc.event.Event;
 
 /**
- * Interceptor for events read from the event store. Intercepts events for events read for an aggregate and
- * events read for an event stream.
+ * Interceptor for events read from the event store. Intercepts events for events read for an aggregate,
+ * events queried through the ad-hoc query function and events read for an event stream.
  *
  * @author Marc Gathier
  * @since 4.5

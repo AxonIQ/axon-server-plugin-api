@@ -14,7 +14,11 @@ import io.axoniq.axonserver.extensions.Ordered;
 import io.axoniq.axonserver.grpc.event.Event;
 
 /**
+ * Interceptor for snapshots read from the event store. Intercepts snapshots read for an aggregate and
+ * queried through the ad-hoc query function.
+ *
  * @author Marc Gathier
+ * @since 4.5
  */
 public interface ReadSnapshotInterceptor extends Ordered {
 

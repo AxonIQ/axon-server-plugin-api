@@ -11,6 +11,7 @@ package io.axoniq.axonserver.extensions.interceptor;
 
 import io.axoniq.axonserver.extensions.ExtensionUnitOfWork;
 import io.axoniq.axonserver.extensions.Ordered;
+import io.axoniq.axonserver.extensions.RequestRejectedException;
 import io.axoniq.axonserver.grpc.command.Command;
 
 /**
@@ -28,5 +29,5 @@ public interface CommandRequestInterceptor extends Ordered {
      * @param extensionContext the context of the request
      * @return the updated command
      */
-    Command commandRequest(Command command, ExtensionUnitOfWork extensionContext);
+    Command commandRequest(Command command, ExtensionUnitOfWork extensionContext) throws RequestRejectedException;
 }
