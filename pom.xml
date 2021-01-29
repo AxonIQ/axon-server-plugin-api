@@ -13,25 +13,95 @@
         <java.version>1.8</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
+        <grpc.version>1.32.2</grpc.version>
+        <axonserver.api.version>4.5-SNAPSHOT</axonserver.api.version>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>io.axoniq</groupId>
-            <artifactId>axonserver-grpc</artifactId>
-            <version>4.5-SNAPSHOT</version>
+            <artifactId>axon-server-api</artifactId>
+            <version>${axonserver.api.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.grpc</groupId>
+            <artifactId>grpc-stub</artifactId>
+            <version>${grpc.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.grpc</groupId>
+            <artifactId>grpc-protobuf</artifactId>
+            <version>${grpc.version}</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 
     <build>
+        <extensions>
+            <!-- resolves ${os.detected.classifier} -->
+            <extension>
+                <groupId>kr.motd.maven</groupId>
+                <artifactId>os-maven-plugin</artifactId>
+                <version>1.6.2</version>
+            </extension>
+        </extensions>
         <plugins>
+            <!-- Copy public .proto from the axoniq-eventstore-queryDefinition-proto artifact to target/proto -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>unpack</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>io.axoniq</groupId>
+                                    <artifactId>axon-server-api</artifactId>
+                                    <outputDirectory>${project.build.directory}/proto</outputDirectory>
+                                    <includes>*.proto</includes>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- Generated classes for .proto files -->
+            <plugin>
+                <groupId>org.xolstice.maven.plugins</groupId>
+                <artifactId>protobuf-maven-plugin</artifactId>
+                <version>0.6.1</version>
+                <configuration>
+                    <protocArtifact>com.google.protobuf:protoc:3.6.1:exe:${os.detected.classifier}</protocArtifact>
+                    <pluginId>grpc-java</pluginId>
+                    <pluginArtifact>io.grpc:protoc-gen-grpc-java:1.17.1:exe:${os.detected.classifier}</pluginArtifact>
+                    <clearOutputDirectory>false</clearOutputDirectory>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>generate-classes-for-public-protobuf-api</id>
+                        <goals>
+                            <goal>compile</goal>
+                            <goal>compile-custom</goal>
+                        </goals>
+                        <configuration>
+                            <protoSourceRoot>${project.build.directory}/proto</protoSourceRoot>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>org.apache.felix</groupId>
                 <artifactId>maven-bundle-plugin</artifactId>
                 <extensions>true</extensions>
                 <configuration>
                     <instructions>
-                        <Import-Package>org.osgi.framework,io.axoniq.axonserver.grpc.*</Import-Package>
+                        <Import-Package>org.osgi.framework</Import-Package>
                         <Export-Package>
                             io.axoniq.axonserver.extensions.*,io.axoniq.axonserver.grpc.*;com.google.protobuf.*
                         </Export-Package>

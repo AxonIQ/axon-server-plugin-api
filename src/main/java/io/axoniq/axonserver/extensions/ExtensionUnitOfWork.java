@@ -50,7 +50,7 @@ public interface ExtensionUnitOfWork {
      * @param key the key of the custom data field
      * @return the custom data
      */
-    Object getDetails(String key);
+    <R> R getDetails(String key);
 
     /**
      * Registers an action to compensate state changes made by the interceptor when the request fails to execute
