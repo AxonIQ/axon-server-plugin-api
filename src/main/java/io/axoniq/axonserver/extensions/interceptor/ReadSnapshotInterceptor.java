@@ -22,5 +22,14 @@ import io.axoniq.axonserver.grpc.event.Event;
  */
 public interface ReadSnapshotInterceptor extends Ordered {
 
-    Event readSnapshot(Event snapshot, ExtensionUnitOfWork extensionContext);
+    /**
+     * Intercepts an snapshot read from the event store. The interceptor may change the payload and the metadata of
+     * the snapshot.
+     * If the interceptor throws an exception, the request is cancelled with an error.
+     *
+     * @param snapshot            the read snapshot
+     * @param extensionUnitOfWork the unit of work for the request
+     * @return the (updated) snapshot
+     */
+    Event readSnapshot(Event snapshot, ExtensionUnitOfWork extensionUnitOfWork);
 }

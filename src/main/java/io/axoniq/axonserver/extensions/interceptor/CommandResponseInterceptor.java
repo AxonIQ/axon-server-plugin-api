@@ -21,5 +21,15 @@ import io.axoniq.axonserver.grpc.command.CommandResponse;
  */
 public interface CommandResponseInterceptor extends Ordered {
 
-    CommandResponse commandResponse(CommandResponse command, ExtensionUnitOfWork extensionContext);
+    /**
+     * Interceptor that is called before the response is returned to the client. The interceptor may return an
+     * updated response.
+     * If the interceptor throws an exception Axon Server returns a command response with an error to the client,
+     * instead of the original command response.
+     *
+     * @param commandResponse     the command response
+     * @param extensionUnitOfWork the unit of work for the request
+     * @return the (updated) command response
+     */
+    CommandResponse commandResponse(CommandResponse commandResponse, ExtensionUnitOfWork extensionUnitOfWork);
 }

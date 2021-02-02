@@ -21,5 +21,14 @@ import io.axoniq.axonserver.grpc.event.Event;
  */
 public interface PostCommitSnapshotHook extends Ordered {
 
-    void onPostCommitSnapshot(Event snapshot, ExtensionUnitOfWork context);
+    /**
+     * Intercepts a snapshot after it is committed. The interceptor can not
+     * change the contents of the snapshot.
+     * If the interceptor throws an exception the exception is logged, but the transaction still completes
+     * successfully.
+     *
+     * @param snapshot            the snapshot that has been committed
+     * @param extensionUnitOfWork the unit of work for the transaction
+     */
+    void onPostCommitSnapshot(Event snapshot, ExtensionUnitOfWork extensionUnitOfWork);
 }

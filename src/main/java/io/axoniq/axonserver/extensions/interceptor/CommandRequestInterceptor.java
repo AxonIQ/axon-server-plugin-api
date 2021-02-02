@@ -23,11 +23,15 @@ import io.axoniq.axonserver.grpc.command.Command;
 public interface CommandRequestInterceptor extends Ordered {
 
     /**
-     * Interceptor for an incoming command.
+     * Interceptor for an incoming command. The interceptor may change the content of the request.
+     * If the interceptor throws an exception the client receives a command response with an error, and the
+     * command is not sent to any command handler.
      *
-     * @param command          the command that was sent
-     * @param extensionContext the context of the request
+     * @param command             the command that was sent
+     * @param extensionUnitOfWork the unit of work of the request
      * @return the updated command
+     *
+     * @throws RequestRejectedException if the interceptor rejects the command
      */
-    Command commandRequest(Command command, ExtensionUnitOfWork extensionContext) throws RequestRejectedException;
+    Command commandRequest(Command command, ExtensionUnitOfWork extensionUnitOfWork) throws RequestRejectedException;
 }

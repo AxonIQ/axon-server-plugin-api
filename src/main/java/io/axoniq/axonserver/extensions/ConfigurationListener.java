@@ -19,7 +19,8 @@ public interface ConfigurationListener {
     void updated(String context, Map<String, ?> configuration);
 
     /**
-     * Returns a list of properties that can be set in Axon Server.
+     * Returns {@link Configuration} object containing a list of properties that can be set in Axon Server and
+     * a name for this configuration.
      *
      * @return list of properties that can be set in Axon Server
      */

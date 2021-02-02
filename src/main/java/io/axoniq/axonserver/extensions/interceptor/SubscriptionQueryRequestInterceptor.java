@@ -22,7 +22,17 @@ import io.axoniq.axonserver.grpc.query.SubscriptionQueryRequest;
  */
 public interface SubscriptionQueryRequestInterceptor extends Ordered {
 
+    /**
+     * Intercepts a {@link SubscriptionQueryRequest}. The interceptor may change the content of the request.
+     * If the interceptor throws an exception the request is cancelled with an error.
+     *
+     * @param subscriptionQueryRequest the request
+     * @param extensionUnitOfWork      the unit of work for the request
+     * @return the (updated) request
+     *
+     * @throws RequestRejectedException if the interceptor rejects the request
+     */
     SubscriptionQueryRequest subscriptionQueryRequest(SubscriptionQueryRequest subscriptionQueryRequest,
-                                                      ExtensionUnitOfWork extensionContext)
+                                                      ExtensionUnitOfWork extensionUnitOfWork)
             throws RequestRejectedException;
 }

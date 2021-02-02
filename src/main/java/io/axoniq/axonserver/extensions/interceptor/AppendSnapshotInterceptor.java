@@ -22,5 +22,16 @@ import io.axoniq.axonserver.grpc.event.Event;
  */
 public interface AppendSnapshotInterceptor extends Ordered {
 
-    Event appendSnapshot(Event snapshot, ExtensionUnitOfWork extensionContext) throws RequestRejectedException;
+    /**
+     * Intercepts a snapshot when it is received by Axon Server. The interceptor may change the payload and the
+     * metadata of the snapshot.
+     * If the interceptor throws an exception the exception the transaction is cancelled.
+     *
+     * @param snapshot            the snapshot to insert
+     * @param extensionUnitOfWork the unit of work for the transaction
+     * @return the (updated) snapshot
+     *
+     * @throws RequestRejectedException to indicate that the request was rejected by the interceptor
+     */
+    Event appendSnapshot(Event snapshot, ExtensionUnitOfWork extensionUnitOfWork) throws RequestRejectedException;
 }

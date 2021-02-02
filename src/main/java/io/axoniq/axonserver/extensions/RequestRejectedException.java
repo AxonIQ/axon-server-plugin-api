@@ -1,7 +1,10 @@
 package io.axoniq.axonserver.extensions;
 
 /**
+ * Exception that an interceptor can throw if it rejects the request.
+ *
  * @author Marc Gathier
+ * @since 4.5
  */
 public class RequestRejectedException extends Exception {
 

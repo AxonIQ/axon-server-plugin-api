@@ -24,11 +24,13 @@ import java.util.List;
 public interface PostCommitEventsHook extends Ordered {
 
     /**
-     * Intercepts a transaction after it is committed. The interceptor can no longer
+     * Intercepts a transaction after it is committed. The interceptor can not
      * change the contents of the transaction.
+     * If the interceptor throws an exception the exception is logged, but the transaction still completes
+     * successfully.
      *
-     * @param events  the list of events in the transaction
-     * @param context the context for the request
+     * @param events              the (unmodifiable) list of events in the transaction
+     * @param extensionUnitOfWork the unit of work for the transaction
      */
-    void onPostCommitEvent(List<Event> events, ExtensionUnitOfWork context);
+    void onPostCommitEvent(List<Event> events, ExtensionUnitOfWork extensionUnitOfWork);
 }

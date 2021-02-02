@@ -27,9 +27,11 @@ public interface PreCommitEventsHook extends Ordered {
     /**
      * Intercepts a transaction before it is committed. The interceptor can no longer
      * change the contents of the transaction.
+     * If the interceptor throws an exception the exception the transaction is cancelled.
      *
      * @param events  the list of events in the transaction
      * @param context the context for the request
+     * @throws RequestRejectedException to indicate that the request was rejected by the interceptor
      */
     void onPreCommitEvents(List<Event> events, ExtensionUnitOfWork context) throws RequestRejectedException;
 }

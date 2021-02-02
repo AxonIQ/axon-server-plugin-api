@@ -21,6 +21,15 @@ import io.axoniq.axonserver.grpc.query.SubscriptionQueryResponse;
  */
 public interface SubscriptionQueryResponseInterceptor extends Ordered {
 
+    /**
+     * Intercepts a response message for a subscription query. The interceptor may change the content of the
+     * response message.
+     * If the interceptor throws an exception, Axon Server cancels the subscription query request.
+     *
+     * @param subscriptionQueryResponse the response
+     * @param extensionUnitOfWork       the unit of work for the request
+     * @return the (updated) response
+     */
     SubscriptionQueryResponse subscriptionQueryResponse(SubscriptionQueryResponse subscriptionQueryResponse,
-                                                        ExtensionUnitOfWork extensionContext);
+                                                        ExtensionUnitOfWork extensionUnitOfWork);
 }

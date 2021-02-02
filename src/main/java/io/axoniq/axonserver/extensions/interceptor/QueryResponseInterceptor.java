@@ -21,5 +21,15 @@ import io.axoniq.axonserver.grpc.query.QueryResponse;
  */
 public interface QueryResponseInterceptor extends Ordered {
 
-    QueryResponse queryResponse(QueryResponse response, ExtensionUnitOfWork extensionContext);
+    /**
+     * Intercepts the response of a query before sending it to the client. The interceptor may return
+     * an updated version of the response.
+     * If the interceptor throws an exception, Axon Server will return a query response with an error to
+     * the client, instead of the actual response.
+     *
+     * @param response            the query response
+     * @param extensionUnitOfWork the unit of work for the request
+     * @return the (updated) response
+     */
+    QueryResponse queryResponse(QueryResponse response, ExtensionUnitOfWork extensionUnitOfWork);
 }

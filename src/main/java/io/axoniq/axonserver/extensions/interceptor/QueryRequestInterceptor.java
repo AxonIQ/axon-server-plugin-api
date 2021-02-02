@@ -22,6 +22,17 @@ import io.axoniq.axonserver.grpc.query.QueryRequest;
  */
 public interface QueryRequestInterceptor extends Ordered {
 
-    QueryRequest queryRequest(QueryRequest query, ExtensionUnitOfWork extensionContext) throws
-                                                                                        RequestRejectedException;
+    /**
+     * Intercepts a query before it is sent to a query handler. The interceptor can return an updated query to execute.
+     * If the interceptor throws an exception, Axon Server returns a query response with an error to the client, and
+     * it will not send the query to any handler.
+     *
+     * @param query               the query to execute
+     * @param extensionUnitOfWork the unit of work for the request
+     * @return the (updated) query
+     *
+     * @throws RequestRejectedException if the interceptor rejects the query
+     */
+    QueryRequest queryRequest(QueryRequest query, ExtensionUnitOfWork extensionUnitOfWork) throws
+                                                                                           RequestRejectedException;
 }

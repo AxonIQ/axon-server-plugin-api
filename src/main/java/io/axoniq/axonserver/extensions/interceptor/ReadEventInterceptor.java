@@ -23,11 +23,13 @@ import io.axoniq.axonserver.grpc.event.Event;
 public interface ReadEventInterceptor extends Ordered {
 
     /**
-     * Intercepts an event read from the event store. The interceptor may change the event.
+     * Intercepts an event read from the event store. The interceptor may change the payload and the metadata of
+     * the event.
+     * If the interceptor throws an exception, the stream reading the events is cancelled with an error.
      *
-     * @param event            the read event
-     * @param extensionContext the request context
-     * @return the read event
+     * @param event               the read event
+     * @param extensionUnitOfWork the unit of work for the request
+     * @return the (updated) event
      */
-    Event readEvent(Event event, ExtensionUnitOfWork extensionContext);
+    Event readEvent(Event event, ExtensionUnitOfWork extensionUnitOfWork);
 }
