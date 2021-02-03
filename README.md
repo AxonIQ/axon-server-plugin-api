@@ -72,10 +72,6 @@ Before storing a snapshot, Axon Server executes all _SnapshotPreCommitIntercepto
 
 On sending snapshots to a client, Axon Server executes all _SnapshotReadInterceptor_ instances.  
 
-### Event transformers
-
-
-
 ### Building extensions
 
 To add extensions in Axon Server, create an OSGi module that contains the extension implementations. You can add 
@@ -103,10 +99,9 @@ public class Activator implements BundleActivator {
     private Set<ServiceRegistration> registration = new HashSet<>();
 
     public void start(BundleContext bundleContext) {
-        Dictionary dictionary = new Hashtable();
         registration.add(bundleContext.registerService(ReadEventInterceptor.class.getName(),
                                                        new FirstEventReadInterceptor(),
-                                                       dictionary));
+                                                       null));
     }
 
     public void stop(BundleContext bundleContext) {
