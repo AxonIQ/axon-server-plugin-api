@@ -16,7 +16,7 @@ jobs:
       matrix:
         include:
           - java-version: 11
-            sonar-enabled: true
+            sonar-enabled: false
             deploy: true
 
     steps:
