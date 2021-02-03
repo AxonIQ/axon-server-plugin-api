@@ -42,7 +42,7 @@ jobs:
       - name: Maven operation with Sonar
         if: matrix.sonar-enabled
         run: |
-          mvn -B -U -Pcoverage \
+          mvn -B -U \
           clean verify \
           sonar:sonar \
           -Dsonar.projectKey=axon-server-extension-api \
