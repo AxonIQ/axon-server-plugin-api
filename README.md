@@ -173,15 +173,118 @@ You can change the contents of a request inside an interceptor. As the request p
 you need to create a new version of the request. The recommended way is to initialize a builder with the current request
 and set the changed values in the builder. The following example adds a meta-data field in an event:
 
-```java
-    @Override
-public Event appendEvent(Event event,ExtensionUnitOfWork extensionContext){
-        return Event.newBuilder(event)
-        .putMetaData("createdBy",
-        MetaDataValue.newBuilder()
-        .setTextValue(extensionContext.principal()==null?
-        "[anonymous]":
-        extensionContext.principal()).build())
-        .build();
+```
+@Override
+public Event appendEvent(Event event,ExtensionUnitOfWork extensionContext) {
+  return Event.newBuilder(event)
+              .putMetaData("createdBy",
+                  MetaDataValue.newBuilder()
+                               .setTextValue(extensionContext.principal()==null?
+                                    "[anonymous]":
+                                     extensionContext.principal())
+                               .build())
+              .build();
         }
+```
+Extensions can require configuration you don't want to hard-code in the package. 
+To define these configurable properties, you can implement a class implementing the ConfigurationListener interface, 
+define bind this to the bundle context and pass the class to the interceptor. 
+The configuration is set in Axon Server per context. 
+
+Here's an example of a configuration listener class:
+```java
+package org.sample.impl;
+
+import io.axoniq.axonserver.extensions.AttributeType;
+import io.axoniq.axonserver.extensions.Cardinality;
+import io.axoniq.axonserver.extensions.Configuration;
+import io.axoniq.axonserver.extensions.ConfigurationListener;
+import io.axoniq.axonserver.extensions.ExtensionPropertyDefinition;
+
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
+import static java.util.Arrays.asList;
+
+public class SampleConfigurator implements ConfigurationListener {
+
+    private final List<ExtensionPropertyDefinition> extensionPropertyDefinitions = new LinkedList<>();
+    private final ConcurrentHashMap<String, Map<String, ?>> configurationPerContext = new ConcurrentHashMap<>();
+
+    public SampleConfigurator() {
+        extensionPropertyDefinitions.add(ExtensionPropertyDefinition.newBuilder("hostname", "Hostname")
+                                                                    .defaultValue("127.0.0.1")
+                                                                    .description("The hostname")
+                                                                    .build());
+        extensionPropertyDefinitions.add(ExtensionPropertyDefinition.newBuilder("username", "Username")
+                                                                    .defaultValue("guest")
+                                                                    .build());
+        extensionPropertyDefinitions.add(ExtensionPropertyDefinition.newBuilder("password", "Password")
+                                                                    .type(AttributeType.PASSWORD)
+                                                                    .build());
+    }
+
+    @Override
+    public void updated(String context, Map<String, ?> configuration) {
+        if (configuration == null) {
+            configurationPerContext.remove(context);
+        } else {
+            configurationPerContext.put(context, configuration);
+        }
+    }
+
+
+    @Override
+    public Configuration configuration() {
+        return new Configuration(extensionPropertyDefinitions, "demo");
+    }
+
+    public Object get(String context, String property) {
+        return configurationPerContext.getOrDefault(context, Collections.emptyMap()).get(property);
+    }
+}
+```
+
+The constructor sets up a list of configurable properties. For each property you can define the type, a default value, 
+the cardinality and a list of options. Axon Server uses the configuration operation to retrieve the information about the 
+configurable properties. When an extension is started for a context, or when the properties are updated through Axon Server,
+Axon Server calls the updated operation. 
+
+The following example shows how the configuration listener is registered in the bundle context and passed to an interceptor:
+```java
+package org.sample;
+
+import io.axoniq.axonserver.extensions.ConfigurationListener;
+import io.axoniq.axonserver.extensions.interceptor.AppendEventInterceptor;
+import org.osgi.framework.BundleActivator;
+import org.osgi.framework.BundleContext;
+import org.osgi.framework.ServiceRegistration;
+import org.sample.impl.EventInterceptor;
+import org.sample.impl.SampleConfigurator;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class ConfigActivator implements BundleActivator {
+
+    private final List<ServiceRegistration<?>> registrations = new ArrayList<>();
+
+    @Override
+    public void start(BundleContext context)  {
+        SampleConfigurator configurationListener = new SampleConfigurator();
+
+        registrations.add(context.registerService(ConfigurationListener.class, configurationListener, null));
+        registrations.add(context.registerService(AppendEventInterceptor.class, 
+                                new EventInterceptor(configurationListener),
+                                null));
+    }
+
+    @Override
+    public void stop(BundleContext context)  {
+        registrations.forEach(ServiceRegistration::unregister);
+    }
+}
 ```
