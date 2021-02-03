@@ -17,7 +17,7 @@ jobs:
         include:
           - java-version: 11
             sonar-enabled: false
-            deploy: false
+            deploy: true
 
     steps:
       - name: Checkout code
