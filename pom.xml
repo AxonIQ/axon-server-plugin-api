@@ -120,22 +120,18 @@
 
     <distributionManagement>
         <snapshotRepository>
-            <id>axoniq-nexus</id>
-            <url>https://nexus.dev.axoniq.net/repository/products-snapshots</url>
-            <uniqueVersion>false</uniqueVersion>
+            <id>sonatype</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+            <uniqueVersion>true</uniqueVersion>
         </snapshotRepository>
         <repository>
-            <id>axoniq-nexus</id>
-            <url>https://nexus.dev.axoniq.net/repository/products-releases</url>
-            <uniqueVersion>true</uniqueVersion>
+            <id>sonatype</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
+            <uniqueVersion>false</uniqueVersion>
         </repository>
     </distributionManagement>
 
     <repositories>
-        <repository>
-            <id>axoniq-nexus</id>
-            <url>https://nexus.dev.axoniq.net/repository/products/</url>
-        </repository>
         <repository>
             <id>sonatype</id>
             <url>https://oss.sonatype.org/content/repositories/snapshots</url>
@@ -149,5 +145,36 @@
             </releases>
         </repository>
     </repositories>
+
+    <profiles>
+        <profile>
+            <id>release-sign-artifacts</id>
+            <activation>
+                <property>
+                    <name>performRelease</name>
+                    <value>true</value>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>1.6</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <!--suppress MavenModelInspection -->
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
 </project>
