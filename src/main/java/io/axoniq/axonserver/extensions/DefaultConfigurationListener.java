@@ -29,7 +29,11 @@ public class DefaultConfigurationListener implements ConfigurationListener {
 
     @Override
     public void updated(String context, Map<String, ?> configuration) {
-        valuesPerContext.put(context, configuration);
+        if (configuration == null) {
+            valuesPerContext.remove(context);
+        } else {
+            valuesPerContext.put(context, configuration);
+        }
     }
 
     /**

@@ -96,10 +96,10 @@ import java.util.Set;
 
 public class Activator implements BundleActivator {
 
-    private Set<ServiceRegistration> registration = new HashSet<>();
+    private Set<ServiceRegistration<?>> registration = new HashSet<>();
 
     public void start(BundleContext bundleContext) {
-        registration.add(bundleContext.registerService(ReadEventInterceptor.class.getName(),
+        registration.add(bundleContext.registerService(ReadEventInterceptor.class,
                                                        new FirstEventReadInterceptor(),
                                                        null));
     }
@@ -138,9 +138,9 @@ To bundle the interceptors in a jar file you can use the following maven templat
         <!-- Access to the OSGI classes, 
              provided as it should not be included in the output bundle -->
         <dependency>
-            <groupId>org.apache.felix</groupId>
+            <groupId>org.osgi</groupId>
             <artifactId>org.osgi.core</artifactId>
-            <version>1.0.0</version>
+            <version>6.0.0</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
