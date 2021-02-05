@@ -8,6 +8,24 @@
 
     <artifactId>axonserver-extension-api</artifactId>
     <packaging>bundle</packaging>
+    <name>AxonServer Extension API</name>
+    <description>
+        API module defining the extension points for Axon Server extensions
+    </description>
+    <inceptionYear>2021</inceptionYear>
+    <url>https://github.com/AxonIQ/axon-server-extension-api</url>
+
+    <issueManagement>
+        <system>GitHub</system>
+        <url>https://github.com/AxonIQ/axon-server-extension-api/issues</url>
+    </issueManagement>
+
+    <licenses>
+        <license>
+            <name>AxonIQ Open Source License v1.0</name>
+            <url>https://github.com/AxonIQ/axon-server-extension-api/blob/master/LICENSE</url>
+        </license>
+    </licenses>
 
     <properties>
         <java.version>1.8</java.version>
@@ -114,6 +132,34 @@
                     </instructions>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.2.0</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadoc</id>
+                        <phase>deploy</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.2.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
         </plugins>
     </build>
 
@@ -182,5 +228,10 @@
             </build>
         </profile>
     </profiles>
+
+    <organization>
+        <name>AxonIQ BV</name>
+        <url>https://axoniq.io</url>
+    </organization>
 
 </project>
