@@ -23,7 +23,7 @@ in the response interceptors.
 
 ### Command
 
-Commands can be intercepted before they are sent to a command handler and Command Results are intercepted after the 
+Commands can be intercepted before they are sent to a command handler and CommandResults are intercepted after the 
 command handler has handled the command.
 
 Axon Server executes all registered _CommandRequestInterceptor_ instances before sending the command to the handler.
@@ -199,13 +199,13 @@ and set the changed values in the builder. The following example adds a meta-dat
 
 ```
 @Override
-public Event appendEvent(Event event,ExtensionUnitOfWork extensionContext) {
+public Event appendEvent(Event event,ExtensionUnitOfWork extensionUoW) {
   return Event.newBuilder(event)
               .putMetaData("createdBy",
                   MetaDataValue.newBuilder()
-                               .setTextValue(extensionContext.principal()==null?
+                               .setTextValue(extensionUoW.principal()==null?
                                     "[anonymous]":
-                                     extensionContext.principal())
+                                     extensionUoW.principal())
                                .build())
               .build();
         }
@@ -300,7 +300,10 @@ public class ConfigActivator implements BundleActivator {
     public void start(BundleContext context)  {
         SampleConfigurator configurationListener = new SampleConfigurator();
 
+        // make the SampleConfiguration available to Axon Server by registering it as a ConfigurationListener
         registrations.add(context.registerService(ConfigurationListener.class, configurationListener, null));
+        
+        // register the interceptor, the EventInterceptor gets the SampleConfiguration as constructor parameter
         registrations.add(context.registerService(AppendEventInterceptor.class, 
                                 new EventInterceptor(configurationListener),
                                 null));
