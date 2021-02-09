@@ -2,9 +2,11 @@
 
 ## Interceptors and Hooks
 
-Users can extend Axon Server functionality by defining interceptors. Interceptors intercept requests that 
-client applications send and perform actions before and/or after the request is handled.
-Axon Server supports interceptors for the following types:
+Users can extend Axon Server functionality by defining interceptors and hooks. 
+Interceptors intercept requests that client applications send and perform actions before and/or after the request is handled.
+Hooks can perform actions on messages, but are not able to change the content of the messages.
+
+Axon Server supports interceptors/hooks for the following types:
 - Command
 - Query (scatter/gather and point-to-point)
 - Subscription Query
@@ -14,8 +16,10 @@ Axon Server supports interceptors for the following types:
 Users can define multiple interceptors for the same point, these interceptors will be executed based on the value of 
 the _order_ operation in the interceptor instance.
 
-Each interceptor operation has an InterceptorContext instance as its first parameter. This contains information about the
+Each interceptor operation has an _ExtensionUnitOfWork_ instance as its last parameter. This contains information about the
 caller of the request, the Axon Server context and allows implementors of interceptors to pass data in the interceptor chain. 
+For instance, for a command the _ExtensionUnitOfWork_ for the request interceptors is the same instance as the one provided
+in the response interceptors.
 
 ### Command
 
@@ -27,8 +31,8 @@ If one of the interceptor instances throws an exception Axon Server will not sen
 return a CommandResponse with an error to the client that sent the command.
 
 Once the command handler has handled the command and returned the reply to Axon Server, Axon Server executes all registered
-_CommandResponseInterceptor_ instances. The response interceptor will only receive the CommandResponse object and the 
-InterceptorContext, if it needs any information of the Command request, this has to be added to the InterceptorContext by a
+_CommandResponseInterceptor_ instances. The response interceptor will only receive the CommandResponse object and the
+_ExtensionUnitOfWork_, if it needs any information of the Command request, this has to be added to the _ExtensionUnitOfWork_ by a
 CommandRequestInterceptor. The response interceptor is also executed when the command failed in the command handler. 
 In this case the CommandResponse object contains an error code and error message.
 
@@ -40,6 +44,21 @@ the response interceptors for each response.
 
 ### Subscription Query
 
+The subscription query interceptors intercept SubscriptionQueryRequest and SubscriptionQueryResponse messages. These messages
+are complex messages that contain different types of messages. 
+
+Each SubscriptionQueryRequest contains one of the following types:
+- Subscribe, to subscribe to the updates for the subscription query
+- Unsubscribe, to unsubscribe from updates
+- GetInitialResult, to request the initial result
+- FlowControl, to grant permits to the updates providers to send more updates
+
+A SubscriptionQueryResponse message contains one of the following types:
+- InitialResult, the initial result for the subscription query 
+- Update, an update for the subscription query
+- Complete, an indicator that the query is complete and no more updates will be sent  
+- CompleteExceptionally, an indicator that the query is completed exceptionally and no more updates will be sent  
+
 ### Event
 
 For events there are interceptors around the storing of events and interceptors for reading events. 
@@ -50,14 +69,16 @@ When storing events, a client sends a stream of events to Axon Server, for each 
 executes the _AppendEventInterceptor_ instances. These interceptors can manipulate the content of the event, and if one of the 
 interceptors throws an error the transaction fails. 
 
-When the client closes the stream, to commit the events, Axon Server executes the _EventsPreCommitInterceptor_ instances.
-This interceptor only receives the InterceptorContext, it does not get the events that were part of the transaction. 
-If the interceptor needs information about the events in the transaction, an AppendEventInterceptor should add the information
-to the context. 
+When the client closes the stream, to commit the events, Axon Server executes the _EventsPreCommitHook_ instances.
+This interceptor receives the list of events in the transaction and the _ExtensionUnitOfWork_. 
 
 Once Axon Server has stored the events in the event store, and before it returns the confirmation to the client, it
-executes any _EventsPostCommitInterceptor_ instances. Just like the EventsPreCommitInterceptor this interceptor does not
-have access to the events.
+executes any _EventsPostCommitHook_ instances. 
+
+If the one of the _AppendEventInterceptor_ or _EventsPreCommitHook_ makes changes in an external system, that you want to 
+have undone if the transaction was cancelled, the interceptor can register an _onFailure_ action in the _ExtensionUnitOfWork_.
+If the transaction fails for any reason in Axon Server, or because one of the subsequent interceptors throws an exception, all the
+registered _onFailure_ actions are executed. The actions are executed in reverse order (the last registered action is executed first).
 
 _Reading events_
 
@@ -67,8 +88,11 @@ application. The interceptor may change the content of the event.
 ### Snapshot
 
 For snapshots there are interceptors around the storing of snapshot and interceptors for reading snapshots.
-Before storing a snapshot, Axon Server executes all _SnapshotPreCommitInterceptor_ instances.
-**Note: there is no SnapshotPostCommitInterceptor yet.**
+Before storing a snapshot, Axon Server executes all _AppendSnapshotInterceptor_ instances. Once the snapshot is stored
+in AxonServer, it executes all _PostCommitSnapshotHook_ instances.
+
+Similar as for events, you can also register _onFailure_ actions from interceptors from the _AppendSnapshotInterceptor_ 
+interceptors.
 
 On sending snapshots to a client, Axon Server executes all _SnapshotReadInterceptor_ instances.  
 
