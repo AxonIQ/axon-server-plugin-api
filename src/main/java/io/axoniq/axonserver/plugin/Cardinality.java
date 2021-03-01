@@ -1,7 +1,7 @@
-package io.axoniq.axonserver.extensions;
+package io.axoniq.axonserver.plugin;
 
 /**
- * Values for the cardinality of an {@link ExtensionPropertyDefinition}.
+ * Values for the cardinality of an {@link PluginPropertyDefinition}.
  *
  * @author Marc Gathier
  * @since 4.5

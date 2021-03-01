@@ -1,4 +1,4 @@
-package io.axoniq.axonserver.extensions;
+package io.axoniq.axonserver.plugin;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -23,7 +23,7 @@ public class DefaultConfigurationListener implements ConfigurationListener {
      * @param name       the name of the configuration
      * @param properties the properties that are defined in this configuration
      */
-    public DefaultConfigurationListener(String name, List<ExtensionPropertyDefinition> properties) {
+    public DefaultConfigurationListener(String name, List<PluginPropertyDefinition> properties) {
         this.configuration = new Configuration(properties, name);
     }
 

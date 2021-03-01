@@ -7,10 +7,10 @@
  *
  */
 
-package io.axoniq.axonserver.extensions.hook;
+package io.axoniq.axonserver.plugin.hook;
 
-import io.axoniq.axonserver.extensions.ExtensionUnitOfWork;
-import io.axoniq.axonserver.extensions.Ordered;
+import io.axoniq.axonserver.plugin.PluginUnitOfWork;
+import io.axoniq.axonserver.plugin.Ordered;
 import io.axoniq.axonserver.grpc.event.Event;
 
 import java.util.List;
@@ -32,5 +32,5 @@ public interface PostCommitEventsHook extends Ordered {
      * @param events              the (unmodifiable) list of events in the transaction
      * @param extensionUnitOfWork the unit of work for the transaction
      */
-    void onPostCommitEvent(List<Event> events, ExtensionUnitOfWork extensionUnitOfWork);
+    void onPostCommitEvent(List<Event> events, PluginUnitOfWork extensionUnitOfWork);
 }

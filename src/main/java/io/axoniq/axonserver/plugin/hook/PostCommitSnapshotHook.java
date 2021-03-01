@@ -7,10 +7,10 @@
  *
  */
 
-package io.axoniq.axonserver.extensions.hook;
+package io.axoniq.axonserver.plugin.hook;
 
-import io.axoniq.axonserver.extensions.ExtensionUnitOfWork;
-import io.axoniq.axonserver.extensions.Ordered;
+import io.axoniq.axonserver.plugin.PluginUnitOfWork;
+import io.axoniq.axonserver.plugin.Ordered;
 import io.axoniq.axonserver.grpc.event.Event;
 
 /**
@@ -30,5 +30,5 @@ public interface PostCommitSnapshotHook extends Ordered {
      * @param snapshot            the snapshot that has been committed
      * @param extensionUnitOfWork the unit of work for the transaction
      */
-    void onPostCommitSnapshot(Event snapshot, ExtensionUnitOfWork extensionUnitOfWork);
+    void onPostCommitSnapshot(Event snapshot, PluginUnitOfWork extensionUnitOfWork);
 }

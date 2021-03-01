@@ -7,10 +7,10 @@
  *
  */
 
-package io.axoniq.axonserver.extensions.interceptor;
+package io.axoniq.axonserver.plugin.interceptor;
 
-import io.axoniq.axonserver.extensions.ExtensionUnitOfWork;
-import io.axoniq.axonserver.extensions.Ordered;
+import io.axoniq.axonserver.plugin.PluginUnitOfWork;
+import io.axoniq.axonserver.plugin.Ordered;
 import io.axoniq.axonserver.grpc.event.Event;
 
 /**
@@ -31,5 +31,5 @@ public interface ReadEventInterceptor extends Ordered {
      * @param extensionUnitOfWork the unit of work for the request
      * @return the (updated) event
      */
-    Event readEvent(Event event, ExtensionUnitOfWork extensionUnitOfWork);
+    Event readEvent(Event event, PluginUnitOfWork extensionUnitOfWork);
 }

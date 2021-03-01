@@ -1,4 +1,4 @@
-package io.axoniq.axonserver.extensions;
+package io.axoniq.axonserver.plugin;
 
 /**
  * Exception that an interceptor can throw if it rejects the request.

@@ -1,4 +1,4 @@
-package io.axoniq.axonserver.extensions;
+package io.axoniq.axonserver.plugin;
 
 import java.util.Map;
 

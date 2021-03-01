@@ -7,11 +7,11 @@
  *
  */
 
-package io.axoniq.axonserver.extensions.interceptor;
+package io.axoniq.axonserver.plugin.interceptor;
 
-import io.axoniq.axonserver.extensions.ExtensionUnitOfWork;
-import io.axoniq.axonserver.extensions.Ordered;
-import io.axoniq.axonserver.extensions.RequestRejectedException;
+import io.axoniq.axonserver.plugin.PluginUnitOfWork;
+import io.axoniq.axonserver.plugin.Ordered;
+import io.axoniq.axonserver.plugin.RequestRejectedException;
 import io.axoniq.axonserver.grpc.event.Event;
 
 /**
@@ -33,5 +33,5 @@ public interface AppendSnapshotInterceptor extends Ordered {
      *
      * @throws RequestRejectedException to indicate that the request was rejected by the interceptor
      */
-    Event appendSnapshot(Event snapshot, ExtensionUnitOfWork extensionUnitOfWork) throws RequestRejectedException;
+    Event appendSnapshot(Event snapshot, PluginUnitOfWork extensionUnitOfWork) throws RequestRejectedException;
 }

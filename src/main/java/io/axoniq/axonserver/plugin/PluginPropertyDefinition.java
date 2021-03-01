@@ -1,4 +1,4 @@
-package io.axoniq.axonserver.extensions;
+package io.axoniq.axonserver.plugin;
 
 import java.util.List;
 
@@ -8,7 +8,7 @@ import java.util.List;
  * @author Marc Gathier
  * @since 4.5
  */
-public class ExtensionPropertyDefinition {
+public class PluginPropertyDefinition {
 
     private final String id;
     private final String name;
@@ -19,9 +19,9 @@ public class ExtensionPropertyDefinition {
     private final List<String> optionLabels;
     private final List<String> optionValues;
 
-    private ExtensionPropertyDefinition(String id, String name, Cardinality cardinality, Object defaultValue,
-                                        AttributeType type, String description, List<String> optionLabels,
-                                        List<String> optionValues) {
+    private PluginPropertyDefinition(String id, String name, Cardinality cardinality, Object defaultValue,
+                                     AttributeType type, String description, List<String> optionLabels,
+                                     List<String> optionValues) {
         this.id = id;
         this.name = name;
         this.cardinality = cardinality;
@@ -107,7 +107,7 @@ public class ExtensionPropertyDefinition {
     }
 
     /**
-     * Creates a builder to build an {@link ExtensionPropertyDefinition} object.
+     * Creates a builder to build an {@link PluginPropertyDefinition} object.
      *
      * @param id   the id of the property
      * @param name the name of the property
@@ -193,19 +193,19 @@ public class ExtensionPropertyDefinition {
         }
 
         /**
-         * Builds the {@link ExtensionPropertyDefinition} object.
+         * Builds the {@link PluginPropertyDefinition} object.
          *
-         * @return the {@link ExtensionPropertyDefinition}
+         * @return the {@link PluginPropertyDefinition}
          */
-        public ExtensionPropertyDefinition build() {
-            return new ExtensionPropertyDefinition(id,
-                                                   name,
-                                                   cardinality,
-                                                   defaultValue,
-                                                   type,
-                                                   description,
-                                                   optionLabels,
-                                                   optionValues);
+        public PluginPropertyDefinition build() {
+            return new PluginPropertyDefinition(id,
+                                                name,
+                                                cardinality,
+                                                defaultValue,
+                                                type,
+                                                description,
+                                                optionLabels,
+                                                optionValues);
         }
     }
 }

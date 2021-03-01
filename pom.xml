@@ -6,24 +6,24 @@
     <version>4.5-SNAPSHOT</version>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>axonserver-extension-api</artifactId>
+    <artifactId>axonserver-plugin-api</artifactId>
     <packaging>bundle</packaging>
     <name>AxonServer Extension API</name>
     <description>
-        API module defining the extension points for Axon Server extensions
+        API module defining the extension points for Axon Server plugins
     </description>
     <inceptionYear>2021</inceptionYear>
-    <url>https://github.com/AxonIQ/axon-server-extension-api</url>
+    <url>https://github.com/AxonIQ/axon-server-plugin-api</url>
 
     <issueManagement>
         <system>GitHub</system>
-        <url>https://github.com/AxonIQ/axon-server-extension-api/issues</url>
+        <url>https://github.com/AxonIQ/axon-server-plugin-api/issues</url>
     </issueManagement>
 
     <licenses>
         <license>
             <name>AxonIQ Open Source License v1.0</name>
-            <url>https://github.com/AxonIQ/axon-server-extension-api/blob/master/LICENSE</url>
+            <url>https://github.com/AxonIQ/axon-server-plugin-api/blob/master/LICENSE</url>
         </license>
     </licenses>
 
@@ -127,7 +127,7 @@
                     <instructions>
                         <Import-Package>org.osgi.framework</Import-Package>
                         <Export-Package>
-                            io.axoniq.axonserver.extensions.*,io.axoniq.axonserver.grpc.*;com.google.protobuf.*
+                            io.axoniq.axonserver.plugin.*,io.axoniq.axonserver.grpc.*;com.google.protobuf.*
                         </Export-Package>
                     </instructions>
                 </configuration>
@@ -164,9 +164,9 @@
     </build>
 
     <scm>
-        <connection>scm:git:https://github.com/AxonIQ/axon-server-extension-api.git</connection>
-        <developerConnection>scm:git:https://github.com/AxonIQ/axon-server-extension-api.git</developerConnection>
-        <url>https://github.com/AxonIQ/axon-server-extension-api</url>
+        <connection>scm:git:https://github.com/AxonIQ/axon-server-plugin-api.git</connection>
+        <developerConnection>scm:git:https://github.com/AxonIQ/axon-server-plugin-api.git</developerConnection>
+        <url>https://github.com/AxonIQ/axon-server-plugin-api</url>
         <tag>master</tag>
     </scm>
 

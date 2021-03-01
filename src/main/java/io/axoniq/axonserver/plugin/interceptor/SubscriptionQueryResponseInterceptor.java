@@ -7,10 +7,10 @@
  *
  */
 
-package io.axoniq.axonserver.extensions.interceptor;
+package io.axoniq.axonserver.plugin.interceptor;
 
-import io.axoniq.axonserver.extensions.ExtensionUnitOfWork;
-import io.axoniq.axonserver.extensions.Ordered;
+import io.axoniq.axonserver.plugin.PluginUnitOfWork;
+import io.axoniq.axonserver.plugin.Ordered;
 import io.axoniq.axonserver.grpc.query.SubscriptionQueryResponse;
 
 /**
@@ -31,5 +31,5 @@ public interface SubscriptionQueryResponseInterceptor extends Ordered {
      * @return the (updated) response
      */
     SubscriptionQueryResponse subscriptionQueryResponse(SubscriptionQueryResponse subscriptionQueryResponse,
-                                                        ExtensionUnitOfWork extensionUnitOfWork);
+                                                        PluginUnitOfWork extensionUnitOfWork);
 }

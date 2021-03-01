@@ -1,4 +1,4 @@
-package io.axoniq.axonserver.extensions;
+package io.axoniq.axonserver.plugin;
 
 import java.util.Map;
 import java.util.Set;
@@ -11,7 +11,7 @@ import java.util.function.Consumer;
  * @author Marc Gathier
  * @since 4.5
  */
-public interface ExtensionUnitOfWork {
+public interface PluginUnitOfWork {
 
     /**
      * @return the name of the Axon Server context for the request
@@ -58,5 +58,5 @@ public interface ExtensionUnitOfWork {
      *
      * @param compensatingAction the action to execute when the request failed
      */
-    void onFailure(Consumer<ExtensionUnitOfWork> compensatingAction);
+    void onFailure(Consumer<PluginUnitOfWork> compensatingAction);
 }

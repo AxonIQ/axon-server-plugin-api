@@ -7,11 +7,11 @@
  *
  */
 
-package io.axoniq.axonserver.extensions.interceptor;
+package io.axoniq.axonserver.plugin.interceptor;
 
-import io.axoniq.axonserver.extensions.ExtensionUnitOfWork;
-import io.axoniq.axonserver.extensions.Ordered;
-import io.axoniq.axonserver.extensions.RequestRejectedException;
+import io.axoniq.axonserver.plugin.PluginUnitOfWork;
+import io.axoniq.axonserver.plugin.Ordered;
+import io.axoniq.axonserver.plugin.RequestRejectedException;
 import io.axoniq.axonserver.grpc.query.QueryRequest;
 
 /**
@@ -33,6 +33,6 @@ public interface QueryRequestInterceptor extends Ordered {
      *
      * @throws RequestRejectedException if the interceptor rejects the query
      */
-    QueryRequest queryRequest(QueryRequest query, ExtensionUnitOfWork extensionUnitOfWork) throws
+    QueryRequest queryRequest(QueryRequest query, PluginUnitOfWork extensionUnitOfWork) throws
                                                                                            RequestRejectedException;
 }

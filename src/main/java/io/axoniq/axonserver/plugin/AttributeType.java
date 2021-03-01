@@ -1,4 +1,4 @@
-package io.axoniq.axonserver.extensions;
+package io.axoniq.axonserver.plugin;
 
 /**
  * Enum of attribute types for configurable properties used in a service.
