@@ -222,7 +222,7 @@ package org.sample.impl;
 import AttributeType;
 import Configuration;
 import ConfigurationListener;
-import ExtensionPropertyDefinition;
+import PluginPropertyDefinition;
 
 import java.util.Collections;
 import java.util.LinkedList;

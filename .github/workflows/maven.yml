@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - master
-      - rename-to-plugin
   pull_request:
 
 jobs:
