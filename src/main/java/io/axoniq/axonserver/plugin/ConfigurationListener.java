@@ -19,6 +19,12 @@ public interface ConfigurationListener {
     void updated(String context, Map<String, ?> configuration);
 
     /**
+     *  Callback that is invoked when Axon Server has removed configuration for a context.
+     * @param context   the name of the context
+     */
+    void removed(String context);
+
+    /**
      * Returns {@link Configuration} object containing a list of properties that can be set in Axon Server and
      * a name for this configuration.
      *

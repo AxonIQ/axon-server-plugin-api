@@ -2,7 +2,7 @@ package io.axoniq.axonserver.plugin;
 
 import java.util.Map;
 import java.util.Set;
-import java.util.function.Consumer;
+import java.util.function.BiConsumer;
 
 /**
  * Context information provided to all intercepted requests. The same context instance is shared in the whole request
@@ -58,5 +58,5 @@ public interface PluginUnitOfWork {
      *
      * @param compensatingAction the action to execute when the request failed
      */
-    void onFailure(Consumer<PluginUnitOfWork> compensatingAction);
+    void onFailure(BiConsumer<Throwable, PluginUnitOfWork> compensatingAction);
 }

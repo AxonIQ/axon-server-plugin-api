@@ -29,11 +29,12 @@ public class DefaultConfigurationListener implements ConfigurationListener {
 
     @Override
     public void updated(String context, Map<String, ?> configuration) {
-        if (configuration == null) {
-            valuesPerContext.remove(context);
-        } else {
-            valuesPerContext.put(context, configuration);
-        }
+        valuesPerContext.put(context, configuration == null ? Collections.emptyMap() : configuration);
+    }
+
+    @Override
+    public void removed(String context) {
+        valuesPerContext.remove(context);
     }
 
     /**

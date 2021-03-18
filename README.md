@@ -107,7 +107,7 @@ container.
 ```java
 package org.example.interceptor;
 
-import ReadEventInterceptor;
+import io.axoniq.axonserver.plugin.ReadEventInterceptor;
 import org.example.interceptor.impl.FirstEventReadInterceptor;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
@@ -219,10 +219,10 @@ Here's an example of a configuration listener class:
 ```java
 package org.sample.impl;
 
-import AttributeType;
-import Configuration;
-import ConfigurationListener;
-import PluginPropertyDefinition;
+import io.axoniq.axonserver.plugin.AttributeType;
+import io.axoniq.axonserver.plugin.Configuration;
+import io.axoniq.axonserver.plugin.ConfigurationListener;
+import io.axoniq.axonserver.plugin.PluginPropertyDefinition;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -230,48 +230,35 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class SampleConfigurator implements ConfigurationListener {
+import static java.util.Arrays.asList;
 
-    private final List<PluginPropertyDefinition> pluginPropertyDefinitions = new LinkedList<>();
-    private final ConcurrentHashMap<String, Map<String, ?>> configurationPerContext = new ConcurrentHashMap<>();
+public class SampleConfigurator extends DefaultConfigurationListener {
+
 
     public SampleConfigurator() {
-        pluginPropertyDefinitions.add(PluginPropertyDefinition.newBuilder("hostname", "Hostname")
-                                                                    .defaultValue("127.0.0.1")
-                                                                    .description("The hostname")
-                                                                    .build());
-        pluginPropertyDefinitions.add(PluginPropertyDefinition.newBuilder("username", "Username")
-                                                                    .defaultValue("guest")
-                                                                    .build());
-        pluginPropertyDefinitions.add(PluginPropertyDefinition.newBuilder("password", "Password")
-                                                                    .type(AttributeType.PASSWORD)
-                                                                    .build());
-    }
-
-    @Override
-    public void updated(String context, Map<String, ?> configuration) {
-        if (configuration == null) {
-            configurationPerContext.remove(context);
-        } else {
-            configurationPerContext.put(context, configuration);
-        }
-    }
-
-
-    @Override
-    public Configuration configuration() {
-        return new Configuration(pluginPropertyDefinitions, "demo");
-    }
-
-    public Object get(String context, String property) {
-        return configurationPerContext.getOrDefault(context, Collections.emptyMap()).get(property);
+        super("demo", asList(
+                PluginPropertyDefinition.newBuilder("hostname", "Hostname")
+                                        .defaultValue("127.0.0.1")
+                                        .description("The hostname")
+                                        .build(),
+                PluginPropertyDefinition.newBuilder("port", "Port")
+                                        .type(AttributeType.INTEGER)
+                                        .defaultValue(654)
+                                        .build(),
+                PluginPropertyDefinition.newBuilder("username", "Username")
+                                        .defaultValue("guest")
+                                        .build(),
+                PluginPropertyDefinition.newBuilder("password", "Password")
+                                        .type(AttributeType.PASSWORD)
+                                        .build()
+        ));
     }
 }
 ```
 
 The constructor sets up a list of configurable properties. For each property you can define the type, a default value, 
 the cardinality and a list of options. Axon Server uses the configuration operation to retrieve the information about the 
-configurable properties. When an plugin is started for a context, or when the properties are updated through Axon Server,
+configurable properties. When a plugin is started for a context, or when the properties are updated through Axon Server,
 Axon Server calls the updated operation. 
 
 The following example shows how the configuration listener is registered in the bundle context and passed to an interceptor:
@@ -279,8 +266,8 @@ The following example shows how the configuration listener is registered in the 
 ```java
 package org.sample;
 
-import ConfigurationListener;
-import AppendEventInterceptor;
+import io.axoniq.axonserver.pluginAppendEventInterceptor;
+import io.axoniq.axonserver.pluginConfigurationListener;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceRegistration;
