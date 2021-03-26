@@ -96,7 +96,7 @@ interceptors.
 
 On sending snapshots to a client, Axon Server executes all _SnapshotReadInterceptor_ instances.  
 
-### Building plugins
+## Building plugins
 
 To add plugins in Axon Server, create an OSGi module that contains the plugin implementations. You can add 
 all plugins in a single module, or you can define multiple modules, each containing some interceptors.
@@ -300,3 +300,26 @@ public class ConfigActivator implements BundleActivator {
     }
 }
 ```
+
+### Logging
+
+Plugins run in their own environment, therefore the logging is not integrated with Axon Server's own logging. To 
+do logging from your own plugin you have to add a logging library to the plugin. To use sl4j in combination with logback you can add
+the following dependencies in the project:
+```xml
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.30</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.2.3</version>
+        </dependency>
+```
+Note, that although Axon Server is using the same logging classes, you are responsible for configuring the logging in the plugin. 
+To configure the logging with logback, add a logback.xml file in the plugin jar.
+
+It is possible to log to the same file as Axon Server is logging to (if you have set up Axon Server to log to a file). The log
+messages will be mixed inside the file. 
