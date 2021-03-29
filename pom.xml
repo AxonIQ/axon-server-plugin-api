@@ -8,7 +8,7 @@
 
     <artifactId>axonserver-plugin-api</artifactId>
     <packaging>bundle</packaging>
-    <name>AxonServer Extension API</name>
+    <name>AxonServer Plugin API</name>
     <description>
         API module defining the extension points for Axon Server plugins
     </description>

@@ -9,7 +9,7 @@
 
 package io.axoniq.axonserver.plugin.hook;
 
-import io.axoniq.axonserver.plugin.PluginUnitOfWork;
+import io.axoniq.axonserver.plugin.ExecutionContext;
 import io.axoniq.axonserver.plugin.Ordered;
 import io.axoniq.axonserver.grpc.event.Event;
 
@@ -26,11 +26,11 @@ public interface PostCommitEventsHook extends Ordered {
     /**
      * Intercepts a transaction after it is committed. The interceptor can not
      * change the contents of the transaction.
-     * If the interceptor throws an exception the exception is logged, but the transaction still completes
-     * successfully.
+     * If the post commit hook throws an exception the exception is returned to the caller, but as the transaction
+     * is already committed the events are still stored in the event store.
      *
-     * @param events              the (unmodifiable) list of events in the transaction
-     * @param extensionUnitOfWork the unit of work for the transaction
+     * @param events           the (unmodifiable) list of events in the transaction
+     * @param executionContext the execution context for the transaction
      */
-    void onPostCommitEvent(List<Event> events, PluginUnitOfWork extensionUnitOfWork);
+    void onPostCommitEvent(List<Event> events, ExecutionContext executionContext);
 }

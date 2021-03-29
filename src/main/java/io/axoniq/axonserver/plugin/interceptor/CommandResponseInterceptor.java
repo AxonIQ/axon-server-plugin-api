@@ -9,7 +9,7 @@
 
 package io.axoniq.axonserver.plugin.interceptor;
 
-import io.axoniq.axonserver.plugin.PluginUnitOfWork;
+import io.axoniq.axonserver.plugin.ExecutionContext;
 import io.axoniq.axonserver.plugin.Ordered;
 import io.axoniq.axonserver.grpc.command.CommandResponse;
 
@@ -27,9 +27,9 @@ public interface CommandResponseInterceptor extends Ordered {
      * If the interceptor throws an exception Axon Server returns a command response with an error to the client,
      * instead of the original command response.
      *
-     * @param commandResponse     the command response
-     * @param extensionUnitOfWork the unit of work for the request
+     * @param commandResponse  the command response
+     * @param executionContext the execution context for the command
      * @return the (updated) command response
      */
-    CommandResponse commandResponse(CommandResponse commandResponse, PluginUnitOfWork extensionUnitOfWork);
+    CommandResponse commandResponse(CommandResponse commandResponse, ExecutionContext executionContext);
 }

@@ -11,15 +11,15 @@ import java.util.function.BiConsumer;
  * @author Marc Gathier
  * @since 4.5
  */
-public interface PluginUnitOfWork {
+public interface ExecutionContext {
 
     /**
      * @return the name of the Axon Server context for the request
      */
-    String context();
+    String contextName();
 
     /**
-     * @return the name of the application sending the request
+     * @return the name of the application or user sending the request
      */
     String principal();
 
@@ -29,9 +29,9 @@ public interface PluginUnitOfWork {
     Set<String> principalRoles();
 
     /**
-     * @return a map of properties for the application
+     * @return a map of tags for the application
      */
-    Map<String, String> principalMetaData();
+    Map<String, String> principalTags();
 
 
     /**
@@ -42,7 +42,7 @@ public interface PluginUnitOfWork {
      * @param key   the key of the item
      * @param value the value
      */
-    void addDetails(String key, Object value);
+    void putAttribute(String key, Object value);
 
     /**
      * Retrieves custom data from the interceptor context.
@@ -50,7 +50,7 @@ public interface PluginUnitOfWork {
      * @param key the key of the custom data field
      * @return the custom data
      */
-    <R> R getDetails(String key);
+    <R> R getAttribute(String key);
 
     /**
      * Registers an action to compensate state changes made by the interceptor when the request fails to execute
@@ -58,5 +58,5 @@ public interface PluginUnitOfWork {
      *
      * @param compensatingAction the action to execute when the request failed
      */
-    void onFailure(BiConsumer<Throwable, PluginUnitOfWork> compensatingAction);
+    void onFailure(BiConsumer<Throwable, ExecutionContext> compensatingAction);
 }

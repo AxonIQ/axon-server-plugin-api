@@ -9,7 +9,7 @@
 
 package io.axoniq.axonserver.plugin.interceptor;
 
-import io.axoniq.axonserver.plugin.PluginUnitOfWork;
+import io.axoniq.axonserver.plugin.ExecutionContext;
 import io.axoniq.axonserver.plugin.Ordered;
 import io.axoniq.axonserver.plugin.RequestRejectedException;
 import io.axoniq.axonserver.grpc.command.Command;
@@ -27,11 +27,11 @@ public interface CommandRequestInterceptor extends Ordered {
      * If the interceptor throws an exception the client receives a command response with an error, and the
      * command is not sent to any command handler.
      *
-     * @param command             the command that was sent
-     * @param extensionUnitOfWork the unit of work of the request
+     * @param command          the command that was sent
+     * @param executionContext the execution context for the command
      * @return the updated command
      *
      * @throws RequestRejectedException if the interceptor rejects the command
      */
-    Command commandRequest(Command command, PluginUnitOfWork extensionUnitOfWork) throws RequestRejectedException;
+    Command commandRequest(Command command, ExecutionContext executionContext) throws RequestRejectedException;
 }

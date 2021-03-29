@@ -9,7 +9,7 @@
 
 package io.axoniq.axonserver.plugin.interceptor;
 
-import io.axoniq.axonserver.plugin.PluginUnitOfWork;
+import io.axoniq.axonserver.plugin.ExecutionContext;
 import io.axoniq.axonserver.plugin.Ordered;
 import io.axoniq.axonserver.grpc.query.QueryResponse;
 
@@ -27,9 +27,9 @@ public interface QueryResponseInterceptor extends Ordered {
      * If the interceptor throws an exception, Axon Server will return a query response with an error to
      * the client, instead of the actual response.
      *
-     * @param response            the query response
-     * @param extensionUnitOfWork the unit of work for the request
+     * @param response         the query response
+     * @param executionContext the execution context for the request
      * @return the (updated) response
      */
-    QueryResponse queryResponse(QueryResponse response, PluginUnitOfWork extensionUnitOfWork);
+    QueryResponse queryResponse(QueryResponse response, ExecutionContext executionContext);
 }

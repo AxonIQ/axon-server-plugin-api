@@ -9,7 +9,7 @@
 
 package io.axoniq.axonserver.plugin.interceptor;
 
-import io.axoniq.axonserver.plugin.PluginUnitOfWork;
+import io.axoniq.axonserver.plugin.ExecutionContext;
 import io.axoniq.axonserver.plugin.Ordered;
 import io.axoniq.axonserver.plugin.RequestRejectedException;
 import io.axoniq.axonserver.grpc.query.SubscriptionQueryRequest;
@@ -27,12 +27,12 @@ public interface SubscriptionQueryRequestInterceptor extends Ordered {
      * If the interceptor throws an exception the request is cancelled with an error.
      *
      * @param subscriptionQueryRequest the request
-     * @param extensionUnitOfWork      the unit of work for the request
+     * @param executionContext         the execution context for the request
      * @return the (updated) request
      *
      * @throws RequestRejectedException if the interceptor rejects the request
      */
     SubscriptionQueryRequest subscriptionQueryRequest(SubscriptionQueryRequest subscriptionQueryRequest,
-                                                      PluginUnitOfWork extensionUnitOfWork)
+                                                      ExecutionContext executionContext)
             throws RequestRejectedException;
 }

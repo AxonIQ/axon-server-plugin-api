@@ -9,7 +9,7 @@
 
 package io.axoniq.axonserver.plugin.interceptor;
 
-import io.axoniq.axonserver.plugin.PluginUnitOfWork;
+import io.axoniq.axonserver.plugin.ExecutionContext;
 import io.axoniq.axonserver.plugin.Ordered;
 import io.axoniq.axonserver.grpc.query.SubscriptionQueryResponse;
 
@@ -27,9 +27,9 @@ public interface SubscriptionQueryResponseInterceptor extends Ordered {
      * If the interceptor throws an exception, Axon Server cancels the subscription query request.
      *
      * @param subscriptionQueryResponse the response
-     * @param extensionUnitOfWork       the unit of work for the request
+     * @param executionContext          the execution context for the request
      * @return the (updated) response
      */
     SubscriptionQueryResponse subscriptionQueryResponse(SubscriptionQueryResponse subscriptionQueryResponse,
-                                                        PluginUnitOfWork extensionUnitOfWork);
+                                                        ExecutionContext executionContext);
 }

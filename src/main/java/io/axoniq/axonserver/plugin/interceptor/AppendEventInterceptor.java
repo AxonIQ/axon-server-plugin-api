@@ -9,7 +9,7 @@
 
 package io.axoniq.axonserver.plugin.interceptor;
 
-import io.axoniq.axonserver.plugin.PluginUnitOfWork;
+import io.axoniq.axonserver.plugin.ExecutionContext;
 import io.axoniq.axonserver.plugin.Ordered;
 import io.axoniq.axonserver.grpc.event.Event;
 
@@ -27,9 +27,9 @@ public interface AppendEventInterceptor extends Ordered {
      * metadata of the event.
      * If the interceptor throws an exception the exception the transaction is cancelled.
      *
-     * @param event               the new event
-     * @param extensionUnitOfWork the unit of work for the transaction
+     * @param event            the new event
+     * @param executionContext the execution context for the transaction
      * @return the new event
      */
-    Event appendEvent(Event event, PluginUnitOfWork extensionUnitOfWork);
+    Event appendEvent(Event event, ExecutionContext executionContext);
 }

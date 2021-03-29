@@ -9,7 +9,7 @@
 
 package io.axoniq.axonserver.plugin.interceptor;
 
-import io.axoniq.axonserver.plugin.PluginUnitOfWork;
+import io.axoniq.axonserver.plugin.ExecutionContext;
 import io.axoniq.axonserver.plugin.Ordered;
 import io.axoniq.axonserver.plugin.RequestRejectedException;
 import io.axoniq.axonserver.grpc.query.QueryRequest;
@@ -27,12 +27,12 @@ public interface QueryRequestInterceptor extends Ordered {
      * If the interceptor throws an exception, Axon Server returns a query response with an error to the client, and
      * it will not send the query to any handler.
      *
-     * @param query               the query to execute
-     * @param extensionUnitOfWork the unit of work for the request
+     * @param query            the query to execute
+     * @param executionContext the execution context for the request
      * @return the (updated) query
      *
      * @throws RequestRejectedException if the interceptor rejects the query
      */
-    QueryRequest queryRequest(QueryRequest query, PluginUnitOfWork extensionUnitOfWork) throws
-                                                                                           RequestRejectedException;
+    QueryRequest queryRequest(QueryRequest query, ExecutionContext executionContext) throws
+                                                                                     RequestRejectedException;
 }

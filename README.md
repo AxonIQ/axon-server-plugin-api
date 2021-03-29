@@ -13,28 +13,29 @@ Axon Server supports interceptors/hooks for the following types:
 - Event
 - Snapshot
 
-Users can define multiple interceptors for the same point, these interceptors will be executed based on the value of 
+Users can define multiple interceptors for the same point, these interceptors will be executed based on the value of
 the _order_ operation in the interceptor instance.
 
-Each interceptor operation has an _PluginUnitOfWork_ instance as its last parameter. This contains information about the
-caller of the request, the Axon Server context and allows implementors of interceptors to pass data in the interceptor chain. 
-For instance, for a command the _PluginUnitOfWork_ for the request interceptors is the same instance as the one provided
-in the response interceptors.
+Each interceptor operation has an _ExecutionContext_ instance as its last parameter. This contains information about the
+caller of the request, the Axon Server context and allows implementors of interceptors to pass data in the interceptor
+chain. For instance, for a command the _ExecutionContext_ for the request interceptors is the same instance as the one
+provided in the response interceptors.
 
 ### Command
 
 Commands can be intercepted before they are sent to a command handler and CommandResults are intercepted after the 
 command handler has handled the command.
 
-Axon Server executes all registered _CommandRequestInterceptor_ instances before sending the command to the handler.
-If one of the interceptor instances throws an exception Axon Server will not send the command to the handler, and it will
+Axon Server executes all registered _CommandRequestInterceptor_ instances before sending the command to the handler. If
+one of the interceptor instances throws an exception Axon Server will not send the command to the handler, and it will
 return a CommandResponse with an error to the client that sent the command.
 
-Once the command handler has handled the command and returned the reply to Axon Server, Axon Server executes all registered
+Once the command handler has handled the command and returned the reply to Axon Server, Axon Server executes all
+registered
 _CommandResponseInterceptor_ instances. The response interceptor will only receive the CommandResponse object and the
-_PluginUnitOfWork_, if it needs any information of the Command request, this has to be added to the _PluginUnitOfWork_ by a
-CommandRequestInterceptor. The response interceptor is also executed when the command failed in the command handler. 
-In this case the CommandResponse object contains an error code and error message.
+_ExecutionContext_, if it needs any information of the Command request, this has to be added to the _ExecutionContext_
+by a CommandRequestInterceptor. The response interceptor is also executed when the command failed in the command
+handler. In this case the CommandResponse object contains an error code and error message.
 
 ### Query
 
@@ -65,20 +66,21 @@ For events there are interceptors around the storing of events and interceptors 
 
 _Storing events_
 
-When storing events, a client sends a stream of events to Axon Server, for each event that reaches Axon Server, Axon Server
-executes the _AppendEventInterceptor_ instances. These interceptors can manipulate the content of the event, and if one of the 
-interceptors throws an error the transaction fails. 
+When storing events, a client sends a stream of events to Axon Server, for each event that reaches Axon Server, Axon
+Server executes the _AppendEventInterceptor_ instances. These interceptors can manipulate the content of the event, and
+if one of the interceptors throws an error the transaction fails.
 
-When the client closes the stream, to commit the events, Axon Server executes the _EventsPreCommitHook_ instances.
-This interceptor receives the list of events in the transaction and the _PluginUnitOfWork_. 
+When the client closes the stream, to commit the events, Axon Server executes the _EventsPreCommitHook_ instances. This
+interceptor receives the list of events in the transaction and the _ExecutionContext_.
 
 Once Axon Server has stored the events in the event store, and before it returns the confirmation to the client, it
-executes any _EventsPostCommitHook_ instances. 
+executes any _EventsPostCommitHook_ instances.
 
-If the one of the _AppendEventInterceptor_ or _EventsPreCommitHook_ makes changes in an external system, that you want to 
-have undone if the transaction was cancelled, the interceptor can register an _onFailure_ action in the _PluginUnitOfWork_.
-If the transaction fails for any reason in Axon Server, or because one of the subsequent interceptors throws an exception, all the
-registered _onFailure_ actions are executed. The actions are executed in reverse order (the last registered action is executed first).
+If the one of the _AppendEventInterceptor_ or _EventsPreCommitHook_ makes changes in an external system, that you want
+to have undone if the transaction was cancelled, the interceptor can register an _onFailure_ action in the _
+ExecutionContext_. If the transaction fails for any reason in Axon Server, or because one of the subsequent interceptors
+throws an exception, all the registered _onFailure_ actions are executed. The actions are executed in reverse order (the
+last registered action is executed first).
 
 _Reading events_
 
@@ -198,7 +200,7 @@ and set the changed values in the builder. The following example adds a meta-dat
 
 ```
 @Override
-public Event appendEvent(Event event,PluginUnitOfWork pluginUoW) {
+public Event appendEvent(Event event,ExecutionContext executionContext) {
   return Event.newBuilder(event)
               .putMetaData("createdBy",
                   MetaDataValue.newBuilder()

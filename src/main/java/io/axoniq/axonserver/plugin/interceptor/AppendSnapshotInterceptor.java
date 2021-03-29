@@ -9,7 +9,7 @@
 
 package io.axoniq.axonserver.plugin.interceptor;
 
-import io.axoniq.axonserver.plugin.PluginUnitOfWork;
+import io.axoniq.axonserver.plugin.ExecutionContext;
 import io.axoniq.axonserver.plugin.Ordered;
 import io.axoniq.axonserver.plugin.RequestRejectedException;
 import io.axoniq.axonserver.grpc.event.Event;
@@ -27,11 +27,11 @@ public interface AppendSnapshotInterceptor extends Ordered {
      * metadata of the snapshot.
      * If the interceptor throws an exception the exception the transaction is cancelled.
      *
-     * @param snapshot            the snapshot to insert
-     * @param extensionUnitOfWork the unit of work for the transaction
+     * @param snapshot         the snapshot to insert
+     * @param executionContext the execution context for the transaction
      * @return the (updated) snapshot
      *
      * @throws RequestRejectedException to indicate that the request was rejected by the interceptor
      */
-    Event appendSnapshot(Event snapshot, PluginUnitOfWork extensionUnitOfWork) throws RequestRejectedException;
+    Event appendSnapshot(Event snapshot, ExecutionContext executionContext) throws RequestRejectedException;
 }

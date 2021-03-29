@@ -9,7 +9,7 @@
 
 package io.axoniq.axonserver.plugin.interceptor;
 
-import io.axoniq.axonserver.plugin.PluginUnitOfWork;
+import io.axoniq.axonserver.plugin.ExecutionContext;
 import io.axoniq.axonserver.plugin.Ordered;
 import io.axoniq.axonserver.grpc.event.Event;
 
@@ -27,9 +27,9 @@ public interface ReadEventInterceptor extends Ordered {
      * the event.
      * If the interceptor throws an exception, the stream reading the events is cancelled with an error.
      *
-     * @param event               the read event
-     * @param extensionUnitOfWork the unit of work for the request
+     * @param event            the read event
+     * @param executionContext the execution context for the request
      * @return the (updated) event
      */
-    Event readEvent(Event event, PluginUnitOfWork extensionUnitOfWork);
+    Event readEvent(Event event, ExecutionContext executionContext);
 }

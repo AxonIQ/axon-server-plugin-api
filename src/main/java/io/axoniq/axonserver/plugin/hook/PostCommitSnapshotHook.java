@@ -9,7 +9,7 @@
 
 package io.axoniq.axonserver.plugin.hook;
 
-import io.axoniq.axonserver.plugin.PluginUnitOfWork;
+import io.axoniq.axonserver.plugin.ExecutionContext;
 import io.axoniq.axonserver.plugin.Ordered;
 import io.axoniq.axonserver.grpc.event.Event;
 
@@ -24,11 +24,11 @@ public interface PostCommitSnapshotHook extends Ordered {
     /**
      * Intercepts a snapshot after it is committed. The interceptor can not
      * change the contents of the snapshot.
-     * If the interceptor throws an exception the exception is logged, but the transaction still completes
-     * successfully.
+     * If the post commit hook throws an exception the exception is returned to the caller, but as the transaction
+     * is already committed the snapshot is still stored in the event store.
      *
-     * @param snapshot            the snapshot that has been committed
-     * @param extensionUnitOfWork the unit of work for the transaction
+     * @param snapshot         the snapshot that has been committed
+     * @param executionContext the unit of work for the transaction
      */
-    void onPostCommitSnapshot(Event snapshot, PluginUnitOfWork extensionUnitOfWork);
+    void onPostCommitSnapshot(Event snapshot, ExecutionContext executionContext);
 }
