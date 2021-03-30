@@ -155,7 +155,7 @@ To bundle the interceptors in a jar file you can use the following maven templat
         <dependency>
             <groupId>io.axoniq</groupId>
             <artifactId>axonserver-plugin-api</artifactId>
-            <version>4.5-SNAPSHOT</version>
+            <version>4.5</version>
             <scope>provided</scope>
         </dependency>
         <!-- Access to the OSGI classes, 
