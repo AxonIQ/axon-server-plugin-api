@@ -179,6 +179,36 @@
         <tag>master</tag>
     </scm>
 
+    <developers>
+        <developer>
+            <name>Marc Gathier</name>
+            <email>marc.gathier@axoniq.io</email>
+            <organization>AxonIQ</organization>
+            <organizationUrl>https://axoniq.io</organizationUrl>
+            <roles>
+                <role>Developer</role>
+            </roles>
+        </developer>
+        <developer>
+            <name>Sara Pellegrini</name>
+            <email>sara.pellegrini@axoniq.io</email>
+            <organization>AxonIQ</organization>
+            <organizationUrl>https://axoniq.io</organizationUrl>
+            <roles>
+                <role>Developer</role>
+            </roles>
+        </developer>
+        <developer>
+            <name>Milan Savic</name>
+            <email>milan.savic@axoniq.io</email>
+            <organization>AxonIQ</organization>
+            <organizationUrl>https://axoniq.io</organizationUrl>
+            <roles>
+                <role>Developer</role>
+            </roles>
+        </developer>
+    </developers>
+
     <distributionManagement>
         <snapshotRepository>
             <id>sonatype</id>
