@@ -1,4 +1,4 @@
-name: Axon Server Extension API
+name: Axon Server Plugin API
 
 on:
   push:
@@ -45,7 +45,7 @@ jobs:
           mvn -B -U \
           clean verify \
           sonar:sonar \
-          -Dsonar.projectKey=axon-server-extension-api \
+          -Dsonar.projectKey=axon-server-plugin-api \
           -Dsonar.organization=AxonIQ \
           -Dsonar.host.url=https://sonarcloud.io \
           -Dsonar.login=${{ secrets.SONAR_TOKEN }}
