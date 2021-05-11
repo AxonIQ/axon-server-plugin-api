@@ -84,7 +84,7 @@ last registered action is executed first).
 
 _Reading events_
 
-Axon Server executes the _EventReadInterceptor_ instances for each event read from the event store and sent to a client 
+Axon Server executes the _ReadEventInterceptor_ instances for each event read from the event store and sent to a client 
 application. The interceptor may change the content of the event.
 
 ### Snapshot
