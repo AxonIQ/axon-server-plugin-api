@@ -30,7 +30,7 @@
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <grpc.version>1.36.0</grpc.version>
-        <axonserver.api.version>4.5</axonserver.api.version>
+        <axonserver.api.version>4.6.0-SNAPSHOT</axonserver.api.version>
     </properties>
 
     <dependencies>
