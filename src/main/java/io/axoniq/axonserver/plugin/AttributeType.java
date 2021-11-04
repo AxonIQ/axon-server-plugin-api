@@ -12,6 +12,10 @@ public enum AttributeType {
      */
     STRING,
     /**
+     * Mapped to a Java {@link String}. Displayed in Axon Server UI as text entry block.
+     */
+    TEXT,
+    /**
      * Mapped to a Java {@link Integer}.
      */
     INTEGER,
