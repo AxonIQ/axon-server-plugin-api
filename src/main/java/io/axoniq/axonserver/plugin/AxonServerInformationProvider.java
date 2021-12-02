@@ -10,6 +10,8 @@ public interface AxonServerInformationProvider {
 
     String PRODUCT = "product";
     String VERSION = "version";
+    String SIGNATURE = "signature";
+    String SIGNATURE_TIME = "signature_timestamp";
 
     Map<String,String> properties();
 
