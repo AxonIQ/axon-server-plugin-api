@@ -4,7 +4,7 @@ import java.util.Map;
 
 /**
  * @author Marc Gathier
- * @since 4.5.1
+ * @since 4.6.0
  */
 public interface AxonServerInformationProvider {
 
@@ -16,7 +16,7 @@ public interface AxonServerInformationProvider {
             + "K1kUns4vBMZAZ4MSmS5W+gkF1qPxPDHs2oVSIkrY8ZwOvx/nrdzPyt8bBT2lLMEv\n"
             + "7wIDAQAB\n";
 
-    String PRODUCT = "product";
+    String EDITION = "edition";
     String VERSION = "version";
     String SIGNATURE = "signature";
     String SIGNATURE_TIME = "signature_timestamp";
