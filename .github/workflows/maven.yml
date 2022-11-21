@@ -6,7 +6,6 @@ on:
       - master
       - axonserver-plugin-api-*.*.x
 
-  pull_request:
   workflow_dispatch:
 
 jobs:
