@@ -19,8 +19,23 @@ public interface ConfigurationListener {
     void updated(String context, Map<String, ?> configuration);
 
     /**
-     *  Callback that is invoked when Axon Server has removed configuration for a context.
-     * @param context   the name of the context
+     * Callback invoked before a new configuration is effectively saved.
+     * The implementation can reject the new configuration before it will be saved, returning an {@link Invalid} result.
+     * By default, the method returns a {@link Valid} result for backward compatibility.
+     *
+     * @param context       the name of the context
+     * @param configuration the proposed new configuration properties for the context
+     * @return validation result
+     */
+    default <R extends Map<String, ?>> Validated<R> validate(String context, R configuration) {
+        return new Valid<>(configuration);
+    }
+
+
+    /**
+     * Callback that is invoked when Axon Server has removed configuration for a context.
+     *
+     * @param context the name of the context
      */
     void removed(String context);
 
