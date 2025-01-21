@@ -52,12 +52,6 @@
             <version>${grpc.version}</version>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>javax.annotation</groupId>
-            <artifactId>javax.annotation-api</artifactId>
-            <version>1.3.2</version>
-            <scope>provided</scope>
-        </dependency>
     </dependencies>
 
     <build>
@@ -100,9 +94,9 @@
                 <artifactId>protobuf-maven-plugin</artifactId>
                 <version>0.6.1</version>
                 <configuration>
-                    <protocArtifact>com.google.protobuf:protoc:3.6.1:exe:${os.detected.classifier}</protocArtifact>
+                    <protocArtifact>com.google.protobuf:protoc:3.25.3:exe:${os.detected.classifier}</protocArtifact>
                     <pluginId>grpc-java</pluginId>
-                    <pluginArtifact>io.grpc:protoc-gen-grpc-java:1.17.1:exe:${os.detected.classifier}</pluginArtifact>
+                    <pluginArtifact>io.grpc:protoc-gen-grpc-java:1.64.0:exe:${os.detected.classifier}</pluginArtifact>
                     <clearOutputDirectory>false</clearOutputDirectory>
                 </configuration>
                 <executions>
@@ -114,6 +108,9 @@
                         </goals>
                         <configuration>
                             <protoSourceRoot>${project.build.directory}/proto</protoSourceRoot>
+                            <pluginParameter>
+                                @generated=omit
+                            </pluginParameter>
                         </configuration>
                     </execution>
                 </executions>
