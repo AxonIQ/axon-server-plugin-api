@@ -1,6 +1,6 @@
 ---
 name: 'Documentation change'
-about: 'Suggest a documentation change in Axon Server'
+about: 'Suggest a documentation change in the Axon Server Plugin API'
 title:
 type: 'Documentation'
 ---
