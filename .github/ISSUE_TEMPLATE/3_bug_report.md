@@ -10,6 +10,7 @@ type: 'Bug'
 ### Basic information
 
 * Axon Server version:
+* Axon Server Plugin API version:
 * JDK version:
 * Environment details:
 * Complete executable reproducer if available (e.g. GitHub Repo):
