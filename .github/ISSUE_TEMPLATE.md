@@ -23,7 +23,7 @@ After that's done, your issue will typically fall under one of the following opt
 4. It's a `documentation` change
 
 It is recommended that for either of the three you use one of the prepared issue template.
-You can find all three of them [here](https://github.com/AxonIQ/axon-server/issues/new/choose). 
+You can find all four of them [here](https://github.com/AxonIQ/axon-server-plugin-api/issues/new/choose). 
 
 ## None of the above fit!
 
