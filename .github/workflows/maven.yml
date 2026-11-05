@@ -3,7 +3,7 @@ name: Axon Server Plugin API
 on:
   push:
     branches:
-      - master
+      - main
       - axonserver-plugin-api-*.*.x
       - feature/dcb
 
