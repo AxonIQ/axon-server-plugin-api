@@ -1,0 +1,7 @@
+Copyright (c) Axoniq B.V. All rights reserved.
+
+Axon Server Plugin API, part of Axon Server, is licensed
+under the Axoniq Terms of Service. The Terms published at the URL below
+govern all use of this software:
+
+  https://www.axoniq.io/legal/terms-of-service

@@ -1,10 +1,9 @@
 /*
- * Copyright (c) 2017-2020 AxonIQ B.V. and/or licensed to AxonIQ B.V.
- * under one or more contributor license agreements.
+ * Copyright (c) 2020-2026. Axoniq B.V.
  *
- *  Licensed under the AxonIQ Open Source License Agreement v1.0;
- *  you may not use this file except in compliance with the license.
- *
+ * Licensed under the Axoniq Terms of Service (the "Terms"). You may not
+ * use this file except in compliance with the Terms, available at
+ * https://www.axoniq.io/legal/terms-of-service
  */
 
 package io.axoniq.axonserver.plugin.interceptor;

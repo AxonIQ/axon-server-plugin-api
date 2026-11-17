@@ -1,5 +1,29 @@
 # Axon Server Plugin API
 
+This module contains the API for building plugins for [Axon Server](https://axoniq.io/product-overview/axon-server).
+It defines the extension points, such as interceptors and hooks, that Axon Server calls while handling commands,
+queries, events and snapshots. Plugins are packaged as OSGi bundles and depend on the
+`io.axoniq:axonserver-plugin-api` artifact, which is published on Maven Central.
+
+## About this repository
+
+This repository contains the source for the Axon Server Plugin API, published under a commercial, source-available
+license. We publish it here for transparency, so you can inspect the API you're building against.
+
+This is not an open-source project in the OSS sense:
+
+- This repository does not accept external pull requests, and we do not maintain a public contribution process for it.
+- Being able to read the source does not grant open-source usage rights. Under the license terms, you may modify the
+  code for internal use only. You may not distribute the original or modified versions of this software, and you may not
+  distribute the source code or any derivative works to third parties.
+- If you're looking to contribute code to the Axon ecosystem,
+  see [AxonIQ/AxonFramework](https://github.com/AxonIQ/AxonFramework), which remains our open-source project and does
+  accept contributions.
+
+The [LICENSE.txt](./LICENSE.txt) contains a short reference that the Axon Server Plugin API is licensed under
+the [Axoniq Terms of Service](https://www.axoniq.io/legal/terms-of-service) for the controlling legal terms. Questions
+about licensing, permitted use, or usage rights should go to your Axoniq account contact, not GitHub issues.
+
 ## Interceptors and Hooks
 
 Users can extend Axon Server functionality by defining interceptors and hooks. 
@@ -91,7 +115,7 @@ application. The interceptor may change the content of the event.
 
 For snapshots there are interceptors around the storing of snapshot and interceptors for reading snapshots.
 Before storing a snapshot, Axon Server executes all _AppendSnapshotInterceptor_ instances. Once the snapshot is stored
-in AxonServer, it executes all _PostCommitSnapshotHook_ instances.
+in Axon Server, it executes all _PostCommitSnapshotHook_ instances.
 
 Similar as for events, you can also register _onFailure_ actions from interceptors from the _AppendSnapshotInterceptor_ 
 interceptors.
@@ -324,4 +348,59 @@ Note, that although Axon Server is using the same logging classes, you are respo
 To configure the logging with logback, add a logback.xml file in the plugin jar.
 
 It is possible to log to the same file as Axon Server is logging to (if you have set up Axon Server to log to a file). The log
-messages will be mixed inside the file. 
+messages will be mixed inside the file.
+
+## Getting started
+
+Numerous resources can help you on your journey in building Axon Server plugins:
+
+* The [Building plugins](#building-plugins) section above shows how to package interceptors and hooks as an OSGi bundle.
+* The [reference guide](https://docs.axoniq.io) explains Axon Server and its extension points.
+* If the guide doesn't help, our [forum](https://discuss.axoniq.io/) provides a place to ask questions you have during
+  development.
+
+## Receiving help
+
+Are you having trouble using this API?
+Know that we want to help you out the best we can!
+There are a couple of things to consider when you're traversing anything Axon:
+
+* Checking the [reference guide](https://docs.axoniq.io) should be your first stop.
+* When the reference guide does not cover your predicament, we would greatly appreciate it if you could file
+  a [documentation issue](https://github.com/AxonIQ/axon-server-plugin-api/issues) for it.
+* Our [forum](https://discuss.axoniq.io/) provides a space to communicate with the Axon community to help you out.
+  Axoniq developers will help you out on a best-effort basis.
+  And if you know how to help someone else, we greatly appreciate your contributions!
+* We also monitor Stack Overflow for any question tagged with [**axon
+  **](https://stackoverflow.com/questions/tagged/axon).
+  Similarly to the forum, Axoniq developers help out on a best-effort basis.
+
+## Reporting bugs
+
+Found a bug? Open an issue here with:
+
+- Steps to reproduce
+- The Axon Server Plugin API version
+- Relevant logs
+
+We read every issue. Response times follow your support tier, not GitHub's issue queue.
+
+## Feature requests
+
+Feel free to open an issue tagged `enhancement`. We track these, but roadmap decisions are made internally and we can't
+commit to timelines here.
+
+## Reporting security issues
+
+Found a security vulnerability? Do not open a public issue.
+Email [security-disclosure@axoniq.io](mailto:security-disclosure@axoniq.io) directly so we can assess and patch before
+disclosure.
+
+## Code of conduct
+
+Participation in this repository (issues, discussions, etc.) is governed by our [Code of Conduct](./CODE_OF_CONDUCT.md).
+
+---
+
+Copyright (c) Axoniq B.V. All rights reserved. Licensed under
+the [Axoniq Terms of Service](https://www.axoniq.io/legal/terms-of-service).
